@@ -8,6 +8,7 @@ import {compose, createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import eventsReducer from './store/reducers/events-reducer';
 import datesReducer from "./store/reducers/dates-reducer";
+import 'bootstrap/dist/css/bootstrap.css';
 
 const composeEnhancers = process.env.APP_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
