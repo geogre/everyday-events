@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './NewEvent.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Input from "../../../components/Input/Input";
 import eventForm from "../../../forms/event-form";
 import EventsApi from "../../../api/EventsApi";
@@ -103,8 +104,8 @@ class NewEvent extends Component {
                                 value={formElement.config.value} />
                         ))}
                     </div>
-                    <button className="btn">ADD</button>
-                    <button type={"button"} onClick={this.cancelHandler} className={"btn delete"}>CANCEL</button>
+                    <button className={"btn btn-primary"}>ADD</button>
+                    <button type={"button"} onClick={this.cancelHandler} className={"btn delete btn-secondary"}>CANCEL</button>
                 </form>
             </div>
         );

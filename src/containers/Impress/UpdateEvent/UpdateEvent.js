@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './UpdateEvent.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Input from "../../../components/Input/Input";
 import eventForm from "../../../forms/event-form";
 import EventsApi from "../../../api/EventsApi";

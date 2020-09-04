@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const input = ( props ) => {
     let inputElement = null;
-    const inputClasses = ["InputElement"];
+    const inputClasses = ["InputElement", "form-control"];
 
     if(props.invalid && props.touched) {
         inputClasses.push("Invalid");
@@ -67,8 +67,8 @@ const input = ( props ) => {
     }
 
     return (
-        <div className="Input">
-            <label className="Label">{props.label}</label>
+        <div className={`form-group Input ${props.elementType === 'hidden' ? "hidden" : ""}`}>
+            <label className={`Label`}>{props.label}</label>
             {inputElement}
         </div>
     )

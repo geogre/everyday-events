@@ -14,11 +14,13 @@ code {
 }
 
 .hydrated {
-  width: 100%;
   display: flex;
 }
 
-.jumbotron {
-  width: 50%;
-  margin-right: 20px;
-}
+/*:root{*/
+
+/*  --amplify-primary-color: #008000;*/
+/*  --amplify-primary-tint: #0000FF;*/
+/*  --amplify-primary-shade: #008000;*/
+
+/*}*/

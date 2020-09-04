@@ -47,6 +47,7 @@ class EverydayEvents extends Component
                     { dates }
                     <button onClick={()=>{this.props.onSetDate(this.props.dateInfo.nextDate)}}>&gt;</button>
                 </section>
+                <Link className={"btn add-btn btn-primary"} to={'/my-events/new'}>Add</Link>
             </div>
         );
     }
