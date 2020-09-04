@@ -15,3 +15,9 @@
     background-color: #FF9900;
     color: white;
 }
+
+.NewEvent {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
