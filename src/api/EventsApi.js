@@ -1,5 +1,6 @@
 import {API, Auth} from "aws-amplify";
 import config from './config';
+import {FULL_DATE} from "../tools/formatter";
 
 // TODO Why this doesn't work?
 // async function requestData() {
@@ -16,7 +17,7 @@ const EventsApi = {
         return API.get(config.apiName, config.basePath, { // OPTIONAL
             headers: { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` },
             response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-            queryStringParameters: {from: startDate, to: endDate}
+            queryStringParameters: {from: startDate.format(FULL_DATE), to: endDate.format(FULL_DATE)}
         }).then(response => response).catch(error => {
             //TODO catch
         });

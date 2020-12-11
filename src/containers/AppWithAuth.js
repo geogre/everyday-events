@@ -10,15 +10,27 @@ class AppWithAuth extends React.Component {
 
     render() {
         return (
-            <AmplifyAuthenticator>
-                <AmplifySignIn className={"SignInForm"} headerText="Personal storage of your memories" slot="sign-in" />
-                <div className="jumbotron" slot="sign-in">
-                    <h1 className="display-4">Hello, world!</h1>
-                    <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
-                        attention to featured content or information.</p>
-                </div>
-                <App authState={this.state.authState} user={this.state.user} />
-            </AmplifyAuthenticator>
+            <div className={`AppWrapper ${this.state.user ? 'AppWrapper_user' : 'AppWrapper_Guest'}`}>
+                {this.state.user ? '' : (<div className={"AppHeader AppHeader_guest"}>
+                    <img className={"logo"} src={"/logo.svg"} />
+                </div>)}
+                <AmplifyAuthenticator>
+                    <div className={"SignInFormWrapper"}  slot="sign-in">
+                        <AmplifySignIn className={"SignInForm"} headerText="Personal storage of your memories" />
+                    </div>
+                    <div className={"jumbotronWrapper"}  slot="sign-in">
+                        <div className="jumbotron">
+                            <h1 className="display-4">Do you remember?</h1>
+                            <div className="lead">
+                                <p>Your first kiss, first steps of your child, your biggest victory</p>
+                                <p>A lot of events happen in our life, but we not always remember the date when some specific event happened.</p>
+                                <p>But what if you had a tool to save all important events of your life? Just register and create comfortable storage for your memories!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <App authState={this.state.authState} user={this.state.user} />
+                </AmplifyAuthenticator>
+            </div>
             );
     }
 

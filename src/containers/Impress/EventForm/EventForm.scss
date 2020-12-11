@@ -1,0 +1,23 @@
+.EventForm {
+  max-width: 558px;
+  border-radius: 3px;
+  border: 1px solid #cccccc;
+  padding: 10px;
+  .Input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  input[type="text"], textarea {
+    background-color: #F4FBFA;
+    margin: 0;
+  }
+  .form-group {
+    margin: 0;
+  }
+  .buttons-block {
+    display: flex;
+    padding: 24px 0 0;
+    justify-content: space-evenly;
+  }
+}
+

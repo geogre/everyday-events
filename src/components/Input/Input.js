@@ -47,6 +47,7 @@ const input = ( props ) => {
             inputElement = (
                 <DatePicker
                     dateFormat="yyyy-MM-dd"
+                    className={"form-control Input"}
                     onChange={date => props.changed(date)}
                     selected={props.value === '' ? new Date() : new Date(props.value)}
                 />

@@ -12,7 +12,7 @@ const impress = (props ) =>  {
     const loggedInRoutes =
         <Switch>
             <Route path="/" exact component={Eevents} />
-            <Route path="/my-events/new" component={NewEvent} />
+            <Route path="/my-events/new/:currentDate?" component={NewEvent} />
             <Route path="/my-events/update/:eventId" component={UpdateEvent} />
             <Route path="/my-events/:eventId" component={FullEvent} />
             <Route path="/:userId/:eventId" component={UserEvent} />

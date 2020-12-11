@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './NewEvent.css';
+import './NewEvent.scss';
+import '../EventForm/EventForm.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Input from "../../../components/Input/Input";
 import eventForm from "../../../forms/event-form";
@@ -13,6 +14,12 @@ import slugify from "slugify";
 class NewEvent extends Component {
     state = {
         form: eventForm,
+    }
+
+    componentDidMount () {
+        if (this.props.match.params.currentDate) {
+            this.dateChangeHandler(this.props.match.params.currentDate);
+        }
     }
 
     inputChangedHandler = (event) => {
@@ -88,10 +95,12 @@ class NewEvent extends Component {
 
         if(this.state.form)
         return (
-            <div className="NewEvent">
+            <div>
+                <div>
+                    <h2 className={"events-header"}>Add Event</h2>
+                </div>
                 <form onSubmit={this.addEventHandler}>
-                    <h1>Add an event</h1>
-                    <div className="UpdateEvent">
+                    <div className="EventForm">
                         {formElementsArray.map(formElement => (
                             <Input
                                 changed={formElement.id === 'date' ? this.dateChangeHandler : this.inputChangedHandler}
@@ -103,9 +112,11 @@ class NewEvent extends Component {
                                 elementConfig={{name: formElement.id, ...formElement.config.elementConfig}}
                                 value={formElement.config.value} />
                         ))}
+                        <div className={"buttons-block"}>
+                            <button className={"button button-action"}>Add</button>
+                            <button type={"button"} onClick={this.cancelHandler} className={"button"}>Cancel</button>
+                        </div>
                     </div>
-                    <button className={"btn btn-primary"}>ADD</button>
-                    <button type={"button"} onClick={this.cancelHandler} className={"btn delete btn-secondary"}>CANCEL</button>
                 </form>
             </div>
         );

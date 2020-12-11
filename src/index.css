@@ -17,10 +17,7 @@ code {
   display: flex;
 }
 
-/*:root{*/
-
-/*  --amplify-primary-color: #008000;*/
-/*  --amplify-primary-tint: #0000FF;*/
-/*  --amplify-primary-shade: #008000;*/
-
-/*}*/
+  :root{
+  --amplify-primary-color: black;
+  --amplify-font-family: 'Raleway', 'Amazon Ember', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+}

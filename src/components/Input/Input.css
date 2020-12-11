@@ -1,15 +1,3 @@
-.Input {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.Label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
-}
-
 .InputElement {
     outline: none;
     border: 1px solid #ccc;
@@ -33,4 +21,8 @@
 
 .hidden {
     display: none;
+}
+
+.react-datepicker-wrapper {
+    display: block;
 }

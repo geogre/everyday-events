@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Day from "../../../components/Day/Day";
-import './Eevents.css';
+import './Eevents.scss';
 import {Link} from "react-router-dom";
 import EventsApi from "../../../api/EventsApi";
 import * as actionCreators from "../../../store/actions/actions";
@@ -9,6 +9,7 @@ import {getDatesInfo} from "../../../store/selectors/dates-selector";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {getSortedEvents} from "../../../store/selectors/events-selector";
+import {SHORT_DATE} from "../../../tools/formatter";
 
 class EverydayEvents extends Component
 {
@@ -33,21 +34,28 @@ class EverydayEvents extends Component
     render()
     {
         const dates = this.props.dateInfo.datesRange.map(day => {
-            return <Day key={day.key} caption={day.caption} items={this.props.eventsByDate[day.key] || []}/>
+            return <Day key={day.key} dayKey={day.key} caption={day.caption} items={this.props.eventsByDate[day.key] || []}/>
         });
 
         return (
             <div>
+                <div>
+                    <h2 className={"events-header"}>Events Calendar</h2>
+                </div>
                 <div className={"date-info"}>
-                    <div>Current date: <DatePicker selected={this.props.dateInfo.currentDate} onChange={date => {this.props.onSetDate(date)}} /></div>
-                    <h3>Week {this.props.dateInfo.week} ({this.props.dateInfo.startDate} - {this.props.dateInfo.endDate})</h3>
+                    <div className={"current-week"}>
+                        <button className={"date-arrow date-arrow-left"} onClick={()=>{this.props.onSetDate(this.props.dateInfo.previousDate)}}></button>
+                        <input className={"week-dates"} type="text" value={this.props.dateInfo.startDate.format(SHORT_DATE) + " - " + this.props.dateInfo.endDate.format(SHORT_DATE)} />
+                        <button className={"date-arrow date-arrow-right"} onClick={()=>{this.props.onSetDate(this.props.dateInfo.nextDate)}}></button>
+                    </div>
+                    <div className={"current-day"}>
+                        <Link className={"add-btn"} to={'/my-events/new'}></Link>
+                        <DatePicker selected={this.props.dateInfo.currentDate} onChange={date => {this.props.onSetDate(date)}} />
+                    </div>
                 </div>
                 <section className="events">
-                    <button onClick={()=>{this.props.onSetDate(this.props.dateInfo.previousDate)}}>&lt;</button>
                     { dates }
-                    <button onClick={()=>{this.props.onSetDate(this.props.dateInfo.nextDate)}}>&gt;</button>
                 </section>
-                <Link className={"btn add-btn btn-primary"} to={'/my-events/new'}>Add</Link>
             </div>
         );
     }
