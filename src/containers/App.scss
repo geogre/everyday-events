@@ -83,11 +83,15 @@ div#root {
 }
 
 .button {
+  height: 38px;
+  margin: auto;
   line-height: 36px;
   border: solid 1px black;
   border-radius: 3px;
   min-width: 144px;
   font-size: 14px;
+  display: inline-block;
+  text-align: center;
   &-action {
     background: black;
     color: white;

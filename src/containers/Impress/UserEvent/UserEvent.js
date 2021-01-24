@@ -9,7 +9,7 @@ import {S3Album} from "aws-amplify-react";
 class UserEvent extends Component {
 
     componentDidMount () {
-        if ( this.props.match.params.userId && this.props.match.params.eventId ) {
+        if (this.props.match.params.userId && this.props.match.params.eventId ) {
             EventsApi.getUserEvent(this.props.match.params.userId, this.props.match.params.eventId).then(response => {
                 this.props.onGetEvent(response.data.event);
             } ).catch(error => {
@@ -19,6 +19,7 @@ class UserEvent extends Component {
     }
 
     getAlbumPath = () => {
+        console.log(this.props.currentEvent.userId + '/' + this.props.currentEvent.date + '/' + this.props.currentEvent.id);
         return this.props.currentEvent.userId + '/' + this.props.currentEvent.date + '/' + this.props.currentEvent.id;
     }
 
