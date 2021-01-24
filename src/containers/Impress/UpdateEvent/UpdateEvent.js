@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './UpdateEvent.css';
+import './UpdateEvent.scss';
+import '../EventForm/EventForm.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Input from "../../../components/Input/Input";
 import eventForm from "../../../forms/event-form";
@@ -101,10 +102,12 @@ class UpdateEvent extends Component {
                 });
             }
             eevent = (
-                <div className="NewEvent">
+                <div>
+                    <div>
+                        <h2 className={"events-header"}>Update Impression</h2>
+                    </div>
                     <form onSubmit={this.updateDataHandler}>
-                        <h1>Update Impression</h1>
-                        <div className="UpdateEvent">
+                        <div className="EventForm">
                             {formElementsArray.map(formElement => (
                                 <Input
                                     changed={formElement.id === 'date' ? this.dateChangeHandler : this.inputChangedHandler}
@@ -116,9 +119,11 @@ class UpdateEvent extends Component {
                                     elementConfig={{name: formElement.id, ...formElement.config.elementConfig}}
                                     value={formElement.config.value} />
                             ))}
+                            <div className={"buttons-block"}>
+                                <button className={"button button-action"}>Update</button>
+                                <button type={"button"} onClick={this.cancelHandler} className={"button"}>Cancel</button>
+                            </div>
                         </div>
-                        <button className="btn">UPDATE</button>
-                        <button type={"button"} onClick={this.cancelHandler} className={"btn delete"}>CANCEL</button>
                     </form>
                 </div>
             );

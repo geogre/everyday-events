@@ -1,0 +1,99 @@
+@import '../styles/mixins';
+
+* {
+  font-family: var(--amplify-font-family), Raleway, "Open Sans";
+}
+
+html, body, .AppWrapper, amplify-authenticator {
+  height: 100%;
+}
+
+.AppWrapper {
+  &_user {
+    margin: 10px 10px 0;
+  }
+}
+
+.App {
+  width: 100%;
+}
+
+amplify-greetings {
+  justify-content: flex-end;
+  --border-color: transparent;
+}
+
+amplify-authenticator {
+  display: flex;
+  justify-content: stretch;
+}
+
+.AppHeader {
+  display: flex;
+  justify-content: space-between;
+  &_guest {
+    position: absolute;
+    padding-left: 160px;
+    padding-top: 8px;
+  }
+}
+
+.SignInFormWrapper, .jumbotronWrapper {
+  height: 100%;
+  padding-top: 6em;
+}
+
+.jumbotronWrapper {
+  flex: 1;
+  background-image: url(/girl.svg);
+  background-repeat: no-repeat;
+  background-position: bottom 50px right 100px;
+  .jumbotron {
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .lead {
+      font-size: 16px;
+      width: 325px;
+    }
+    background: transparent;
+    padding: 0 2em;
+  }
+}
+
+.SignInFormWrapper {
+  background: #BCE3DF;
+  padding-left: 160px;
+  padding-right: 2em;
+}
+
+div#root {
+  height: 100%;
+  @include for-desktop() {
+    font-size: 20px;
+  }
+}
+
+.events-header {
+  font-size: 1.5em;
+  line-height: 2em;
+  display: inline-block;
+  border-bottom: solid 3px #BCE3DF;
+}
+
+.button {
+  height: 38px;
+  margin: auto;
+  line-height: 36px;
+  border: solid 1px black;
+  border-radius: 3px;
+  min-width: 144px;
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+  &-action {
+    background: black;
+    color: white;
+  }
+}

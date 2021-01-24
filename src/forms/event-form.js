@@ -2,8 +2,7 @@ const eventForm = {
     id: {
         elementType: 'hidden',
         elementConfig: {
-            type: 'text',
-            placeholder: 'Event'
+            type: 'text'
         },
         validation: {
             required: false
@@ -16,8 +15,7 @@ const eventForm = {
     title: {
         elementType: 'input',
         elementConfig: {
-            type: 'text',
-            placeholder: 'Title',
+            type: 'text'
         },
         validation: {
             required: true
@@ -30,8 +28,7 @@ const eventForm = {
     date: {
         elementType: 'datepicker',
         elementConfig: {
-            type: 'text',
-            placeholder: 'Date'
+            type: 'text'
         },
         validation: {
             required: false
@@ -44,8 +41,7 @@ const eventForm = {
     description: {
         elementType: 'input',
         elementConfig: {
-            type: 'text',
-            placeholder: 'Description'
+            type: 'text'
         },
         validation: {
             required: true

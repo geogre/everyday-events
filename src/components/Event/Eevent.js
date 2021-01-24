@@ -1,9 +1,9 @@
 import React from 'react';
-import './Eevent.css';
+import './Eevent.scss';
 
 const eevent = (props ) =>  (
         <div className="event" onClick={props.clicked}>
-            <p className="event-title">{props.data.name}</p>
+            <span className="event-title">{props.data.name}</span>
         </div>
 );
 

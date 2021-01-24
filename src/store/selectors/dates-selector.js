@@ -1,28 +1,30 @@
 import moment from "moment";
+import {DAY_NAME, FULL_DATE, SHORT_DATE} from "../../tools/formatter";
 
 export const getDatesInfo = (currentDate) => {
     const theDate = moment(currentDate);
     const firstDate = theDate.clone().startOf('week');
-    const firstDateStr = firstDate.format('YYYY-MM-DD');
     const endDate = theDate.clone().endOf('week');
-    const endDateStr = endDate.format('YYYY-MM-DD');
     let range = [];
     let curDate = firstDate.clone();
     while(curDate.isBefore(endDate) || curDate.isSame(endDate)) {
         range.push({
-           key: curDate.format('YYYY-MM-DD'),
-           caption: curDate.format('dddd, D MMM')
+           key: curDate.format(FULL_DATE),
+           caption: {
+               dateNum: curDate.format(SHORT_DATE),
+               dateName: curDate.format(DAY_NAME)
+           }
         });
         curDate.add(1, 'day');
     }
-    const previousDate = theDate.clone().subtract(7, 'days').format('YYYY-MM-DD');
-    const nextDate = theDate.clone().add(7, 'days').format('YYYY-MM-DD');
+    const previousDate = theDate.clone().subtract(7, 'days').format(FULL_DATE);
+    const nextDate = theDate.clone().add(7, 'days').format(FULL_DATE);
     const theWeek = theDate.week();
 
     return {
         currentDate: new Date(currentDate),
-        startDate: firstDateStr,
-        endDate: endDateStr,
+        startDate: firstDate,
+        endDate: endDate,
         week: theWeek,
         previousDate: previousDate,
         nextDate: nextDate,

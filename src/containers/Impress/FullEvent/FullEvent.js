@@ -10,7 +10,7 @@ import {S3Album} from "aws-amplify-react";
 import {Storage} from "aws-amplify";
 import FullEventTheme from "./FullEventTheme";
 
-class UserEvent extends Component {
+class FullEvent extends Component {
 
     constructor(props) {
         super(props);
@@ -49,6 +49,7 @@ class UserEvent extends Component {
     }
 
     getAlbumPath = () => {
+        console.log(this.props.currentEvent.userId + '/' + this.props.currentEvent.date + '/' + this.props.currentEvent.id);
         return this.props.currentEvent.userId + '/' + this.props.currentEvent.date + '/' + this.props.currentEvent.id;
     }
 
@@ -94,28 +95,23 @@ class UserEvent extends Component {
             eevent = <Redirect to="/"></Redirect>;
         } else if ( this.props.currentEvent ) {
             eevent = (
-                <div className="EventWrapper">
-                    <div className="UserEvent">
-                        <span className="event-date">{this.props.currentEvent.date}</span>
+                <div>
+                    <div>
+                        <h2 className={"events-header"}>{this.props.currentEvent.date}</h2>
+                    </div>
                         <h1 className="event-title">{this.props.currentEvent.title}</h1>
                         <p className="event-description">{this.props.currentEvent.description}</p>
                         <S3Album ref={this.album} path={this.getAlbumPath()} picker select theme={FullEventTheme}  onSelect={this.onSelectHandler}/>
-                    </div>
-                    <div className="buttons">
-                        <Link className="btn success" to={'/my-events/update/' + this.props.currentEvent.id}>
-                            UPDATE
+                    <div className={"buttons-block"}>
+                        <Link className="button button-action" to={'/my-events/update/' + this.props.currentEvent.id}>
+                            Update
                         </Link>
-                        <div className="Edit">
-                            <button onClick={this.deleteDataHandler} className="btn delete">DELETE</button>
-                        </div>
-                        <div className="Edit">
-                            <button onClick={this.deleteImagesHandler} className={`btn ${this.state.hasSelectedImages ? "success" : "delete"}`}>DELETE SELECTED</button>
-                        </div>
-                        <div className="Edit">
-                            <button onClick={this.cancelHandler} className={"btn delete"}>CANCEL</button>
-                        </div>
+                        <button onClick={this.deleteDataHandler} className="button button-action">Delete</button>
+                        <button onClick={this.deleteImagesHandler} className={`button ${this.state.hasSelectedImages ? "button-success" : "button-delete"}`}>Delete Selected</button>
+                        <button onClick={this.cancelHandler} className={"button"}>Cancel</button>
                     </div>
                 </div>
+
             );
         }
         return eevent;
@@ -135,4 +131,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserEvent);
+export default connect(mapStateToProps, mapDispatchToProps)(FullEvent);

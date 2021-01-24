@@ -12,10 +12,9 @@ const impress = (props ) =>  {
     const loggedInRoutes =
         <Switch>
             <Route path="/" exact component={Eevents} />
-            <Route path="/my-events/new" component={NewEvent} />
+            <Route path="/my-events/new/:currentDate?" component={NewEvent} />
             <Route path="/my-events/update/:eventId" component={UpdateEvent} />
-            <Route path="/my-events/:eventId" component={FullEvent} />
-            <Route path="/:userId/:eventId" component={UserEvent} />
+            <Route path="/my-events/:eventId" strict component={FullEvent} />
         </Switch>;
 
     const loggedOutRoutes =
@@ -23,7 +22,7 @@ const impress = (props ) =>  {
             <Route path="/:userId/:eventId" component={UserEvent} />
         </Switch>;
 
-    const actualRoutes = props.authState === 'signedIn' ? loggedInRoutes : loggedOutRoutes;
+    const actualRoutes = props.authState === 'signedIn' || true ? loggedInRoutes : loggedOutRoutes;
 
     return (
         <div>
