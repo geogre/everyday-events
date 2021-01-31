@@ -1,0 +1,6 @@
+.event-block {
+    display: flex;
+    .details-block, .album-block {
+        flex-grow: 1;
+    }
+}

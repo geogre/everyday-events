@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './FullEvent.css';
+import './FullEvent.scss';
 import EventsApi from "../../../api/EventsApi";
 import {Link} from "react-router-dom";
 import * as actionCreators from "../../../store/actions/actions";
@@ -9,6 +9,8 @@ import {Redirect} from "react-router";
 import {S3Album} from "aws-amplify-react";
 import {Storage} from "aws-amplify";
 import FullEventTheme from "./FullEventTheme";
+import DateDecorated from "../../../components/DateDecorated/DateDecorated";
+import moment from 'moment';
 
 class FullEvent extends Component {
 
@@ -95,20 +97,22 @@ class FullEvent extends Component {
             eevent = <Redirect to="/"></Redirect>;
         } else if ( this.props.currentEvent ) {
             eevent = (
-                <div>
-                    <div>
-                        <h2 className={"events-header"}>{this.props.currentEvent.date}</h2>
-                    </div>
+                <div className={"event-block"}>
+                    <div className={"details-block"}>
+                        <DateDecorated date={moment(this.props.currentEvent.date)} />
                         <h1 className="event-title">{this.props.currentEvent.title}</h1>
                         <p className="event-description">{this.props.currentEvent.description}</p>
-                        <S3Album ref={this.album} path={this.getAlbumPath()} picker select theme={FullEventTheme}  onSelect={this.onSelectHandler}/>
-                    <div className={"buttons-block"}>
-                        <Link className="button button-action" to={'/my-events/update/' + this.props.currentEvent.id}>
-                            Update
-                        </Link>
-                        <button onClick={this.deleteDataHandler} className="button button-action">Delete</button>
-                        <button onClick={this.deleteImagesHandler} className={`button ${this.state.hasSelectedImages ? "button-success" : "button-delete"}`}>Delete Selected</button>
-                        <button onClick={this.cancelHandler} className={"button"}>Cancel</button>
+                        <div className={"buttons-block"}>
+                            <Link className="button button-action" to={'/my-events/update/' + this.props.currentEvent.id}>
+                                Update
+                            </Link>
+                            <button onClick={this.deleteDataHandler} className="button button-action">Delete</button>
+                            <button onClick={this.deleteImagesHandler} className={`button ${this.state.hasSelectedImages ? "button-success" : "button-delete"}`}>Delete Selected</button>
+                            <button onClick={this.cancelHandler} className={"button"}>Cancel</button>
+                        </div>
+                    </div>
+                    <div className={"album-block"} >
+                        <S3Album ref={this.album} path={this.getAlbumPath()} pickerTitle={'+'} picker select theme={FullEventTheme}  onSelect={this.onSelectHandler}/>
                     </div>
                 </div>
 

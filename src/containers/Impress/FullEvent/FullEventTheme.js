@@ -12,5 +12,8 @@ export default
     photoImg: {
         maxWidth: '100px',
         maxHeight: '100px'
+    },
+    photoPickerButton: {
+        background: 'green'
     }
 }
