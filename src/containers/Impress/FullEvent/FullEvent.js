@@ -100,19 +100,22 @@ class FullEvent extends Component {
                 <div className={"event-block"}>
                     <div className={"details-block"}>
                         <DateDecorated date={moment(this.props.currentEvent.date)} />
-                        <h1 className="event-title">{this.props.currentEvent.title}</h1>
+                        <p className="event-title">{this.props.currentEvent.title}</p>
                         <p className="event-description">{this.props.currentEvent.description}</p>
                         <div className={"buttons-block"}>
                             <Link className="button button-action" to={'/my-events/update/' + this.props.currentEvent.id}>
                                 Update
                             </Link>
                             <button onClick={this.deleteDataHandler} className="button button-action">Delete</button>
-                            <button onClick={this.deleteImagesHandler} className={`button ${this.state.hasSelectedImages ? "button-success" : "button-delete"}`}>Delete Selected</button>
                             <button onClick={this.cancelHandler} className={"button"}>Cancel</button>
                         </div>
                     </div>
                     <div className={"album-block"} >
-                        <S3Album ref={this.album} path={this.getAlbumPath()} pickerTitle={'+'} picker select theme={FullEventTheme}  onSelect={this.onSelectHandler}/>
+                        <S3Album ref={this.album} path={this.getAlbumPath()} pickerTitle={'Add new image'} picker select theme={FullEventTheme}  onSelect={this.onSelectHandler}/>
+                        <div className={"buttons-block"}>
+                            <button onClick={this.deleteImagesHandler} className={`button ${this.state.hasSelectedImages ? "button-success" : "hide"}`}>Delete Selected</button>
+
+                        </div>
                     </div>
                 </div>
 

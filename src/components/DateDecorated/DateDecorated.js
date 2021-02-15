@@ -1,5 +1,5 @@
 import React from 'react';
-import './DateDecorated.css';
+import './DateDecorated.scss';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
 

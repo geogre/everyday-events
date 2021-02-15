@@ -1,0 +1,14 @@
+.decorated-date {
+  line-height: 2em;
+  display: inline-block;
+  border-bottom: solid 3px #BCE3DF;
+  &-day {
+    font-size: 48px;
+  }
+  &-month {
+    font-size: 36px;
+  }
+  &-year {
+     font-size: 18px;
+  }
+}

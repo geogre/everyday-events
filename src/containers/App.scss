@@ -84,7 +84,7 @@ div#root {
 
 .button {
   height: 38px;
-  margin: auto;
+  margin-right: 16px;
   line-height: 36px;
   border: solid 1px black;
   border-radius: 3px;
@@ -96,4 +96,8 @@ div#root {
     background: black;
     color: white;
   }
+}
+
+.hide {
+  display: none;
 }

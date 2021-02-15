@@ -1,6 +1,19 @@
 .event-block {
     display: flex;
+    margin-top: 18px;
     .details-block, .album-block {
         flex-grow: 1;
     }
+    .event-title {
+        font-size: 36px;
+        font-weight: bolder;
+    }
+    .event-description {
+        font-size: 16px;
+    }
+}
+.buttons-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
