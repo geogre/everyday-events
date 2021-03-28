@@ -17,7 +17,7 @@ class AppWithAuth extends React.Component {
                 {this.state.user ? '' : (<div className={"AppHeader AppHeader_guest"}>
                     <img className={"logo"} src={"/logo.svg"}/>
                 </div>)}
-                <div className={'homeContent'}>
+                <div className={'HomeContent'}>
                     <div className={"SignInFormWrapper"}>
                         <AmplifyAuthenticator>
 
@@ -38,6 +38,9 @@ class AppWithAuth extends React.Component {
                         </div>
                     </div>
                 </div>
+                <div className={'BottomPicture'}></div>
+                <div className={'TopPicture'}></div>
+                <div className={'RightPicture'}></div>
             </div>
         );
     }

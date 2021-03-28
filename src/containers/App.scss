@@ -47,7 +47,7 @@ amplify-authenticator {
   flex: 1;
   background-image: url(/girl.svg);
   background-repeat: no-repeat;
-  background-position: bottom 50px right 100px;
+  background-position: top 420px left 280px;
   .jumbotron {
     h1 {
       font-size: 36px;
@@ -62,14 +62,49 @@ amplify-authenticator {
   }
 }
 
-.homeContent {
+.HomeContent {
   display: flex;
+  height: 100%;
 }
 
 .SignInFormWrapper {
-  background: #BCE3DF;
+  background-color: #BCE3DF;
   padding-left: 160px;
   padding-right: 2em;
+}
+
+.BottomPicture {
+  position: absolute;
+  height: 221px;
+  width: 588px;
+  bottom: 0px;
+  left: 492px;
+  background-image: url(/picture.svg);
+  background-repeat: no-repeat;
+  background-position: bottom 0px left 0px;
+}
+
+.TopPicture {
+  position: absolute;
+  height: 114px;
+  width: 297px;
+  top: 0px;
+  right: 33%;
+  background-image: url(/picture_top.svg);
+  background-repeat: no-repeat;
+  background-position: top 0px left 0px;
+}
+
+.RightPicture {
+  z-index: -1;
+  position: absolute;
+  height: 354px;
+  width: 355px;
+  right: 24px;
+  top: 92px;
+  background-image: url(/picture_right.svg);
+  background-repeat: no-repeat;
+  background-position: top 0px left 0px;
 }
 
 div#root {
@@ -104,4 +139,16 @@ div#root {
 
 .hide {
   display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .TopPicture, .BottomPicture, .RightPicture, .jumbotronWrapper {
+    display: none;
+  }
+  .SignInFormWrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-left: 0;
+  }
 }
