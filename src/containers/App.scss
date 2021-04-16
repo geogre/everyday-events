@@ -150,5 +150,13 @@ div#root {
     justify-content: center;
     width: 100%;
     padding-left: 0;
+    padding-right: 0;
+  }
+  .AppHeader {
+    &_guest {
+      padding: 0;
+      width: 100%;
+      justify-content: center;
+    }
   }
 }
