@@ -10,6 +10,7 @@ export const getDatesInfo = (currentDate) => {
     while(curDate.isBefore(endDate) || curDate.isSame(endDate)) {
         range.push({
            key: curDate.format(FULL_DATE),
+           isCurrent: curDate.isSame(theDate, 'day'),
            caption: {
                dateNum: curDate.format(SHORT_DATE),
                dateName: curDate.format(DAY_NAME)
@@ -39,6 +40,6 @@ export const detectCurrentDate = () => {
         return currentDate;
     }
     const a = moment().format('YYYY-MM-DD');
-    console.log(a);
+    //console.log(a);
     return a;
 }

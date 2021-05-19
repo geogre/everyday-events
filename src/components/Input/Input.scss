@@ -2,11 +2,16 @@
     outline: none;
     border: 1px solid #ccc;
     background-color: white;
+    line-height: 40px;
+    height: 40px;
     font: inherit;
-    padding: 6px 10px;
     display: block;
     width: 100%;
     box-sizing: border-box;
+}
+
+.TextArea {
+    height: 100px;
 }
 
 .InputElement:focus {
@@ -25,4 +30,11 @@
 
 .react-datepicker-wrapper {
     display: block;
+    height: 40px;
+}
+
+.Label {
+    margin: 12px 0 0;
+    font-weight: bold;
+    font-size: 0.9em;
 }

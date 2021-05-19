@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
-import './Impress.css';
+import './Impress.scss';
 import Eevents from './Eevents/Eevents';
 import NewEvent from "./NewEvent/NewEvent";
 import FullEvent from "./FullEvent/FullEvent";
@@ -25,7 +25,7 @@ const impress = (props ) =>  {
     const actualRoutes = props.authState === 'signedIn' || true ? loggedInRoutes : loggedOutRoutes;
 
     return (
-        <div>
+        <div className={'AppContent'}>
             {actualRoutes}
         </div>
     );

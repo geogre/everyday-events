@@ -1,3 +1,11 @@
 @mixin for-desktop {
-  @media (min-width: 1200px) { @content; }
+  @media (min-width: 1025px) { @content; }
+}
+
+@mixin for-mobile {
+  @media screen and (max-width: 1024px) { @content; }
+}
+@mixin event-day-caption {
+  flex: 1;
+  margin: 0 12px;
 }

@@ -39,7 +39,7 @@ const eventForm = {
         value: ''
     },
     description: {
-        elementType: 'input',
+        elementType: 'textarea',
         elementConfig: {
             type: 'text'
         },

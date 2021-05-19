@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Input.css';
+import './Input.scss';
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const input = ( props ) => {
     let inputElement = null;
-    const inputClasses = ["InputElement", "form-control"];
+    const inputClasses = ["InputElement"];
 
     if(props.invalid && props.touched) {
         inputClasses.push("Invalid");
@@ -24,7 +24,7 @@ const input = ( props ) => {
             break;
         case ( 'textarea' ):
             inputElement = <textarea
-                className={inputClasses.join(' ')}
+                className={inputClasses.concat('TextArea').join(' ')}
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed} />;

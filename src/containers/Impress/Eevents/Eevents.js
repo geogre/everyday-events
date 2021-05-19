@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Day from "../../../components/Day/Day";
+import DayCaption from "../../../components/Day/DayCaption";
 import './Eevents.scss';
 import {Link} from "react-router-dom";
 import EventsApi from "../../../api/EventsApi";
@@ -33,19 +34,34 @@ class EverydayEvents extends Component
 
     render()
     {
-        const dates = this.props.dateInfo.datesRange.map(day => {
-            return <Day key={day.key} dayKey={day.key} caption={day.caption} items={this.props.eventsByDate[day.key] || []}/>
+        let allDates = {
+            captions: [],
+            days: []
+        };
+        this.props.dateInfo.datesRange.forEach(day => {
+            allDates.days.push(<Day
+                current={day.isCurrent}
+                key={day.key}
+                dayKey={day.key}
+                items={this.props.eventsByDate[day.key] || []}
+            />);
+            allDates.captions.push(<DayCaption
+                key={day.key}
+                onClick = {()=>{this.props.onSetDate(day.key)}}
+                current={day.isCurrent}
+                caption={day.caption}
+            />)
         });
 
         return (
             <div>
-                <div>
+                <div className={"events-header-container"}>
                     <h2 className={"events-header"}>Events Calendar</h2>
                 </div>
                 <div className={"date-info"}>
                     <div className={"current-week"}>
                         <button className={"date-arrow date-arrow-left"} onClick={()=>{this.props.onSetDate(this.props.dateInfo.previousDate)}}></button>
-                        <input className={"week-dates"} type="text" value={this.props.dateInfo.startDate.format(SHORT_DATE) + " - " + this.props.dateInfo.endDate.format(SHORT_DATE)} />
+                        <input readOnly className={"week-dates"} type="text" value={this.props.dateInfo.startDate.format(SHORT_DATE) + " - " + this.props.dateInfo.endDate.format(SHORT_DATE)} />
                         <button className={"date-arrow date-arrow-right"} onClick={()=>{this.props.onSetDate(this.props.dateInfo.nextDate)}}></button>
                     </div>
                     <div className={"current-day"}>
@@ -53,8 +69,11 @@ class EverydayEvents extends Component
                         <DatePicker selected={this.props.dateInfo.currentDate} onChange={date => {this.props.onSetDate(date)}} />
                     </div>
                 </div>
+                <section className="captions">
+                    { allDates.captions }
+                </section>
                 <section className="events">
-                    { dates }
+                    { allDates.days }
                 </section>
             </div>
         );

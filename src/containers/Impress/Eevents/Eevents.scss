@@ -1,4 +1,6 @@
-.events {
+@import "../../../styles/mixins";
+
+.events, .captions {
     width: 100%;
     display: flex;
     flex-flow: row;
@@ -10,6 +12,9 @@
     display: flex;
     justify-content: space-between;
     margin: 1em 0;
+    @include for-mobile() {
+        flex-direction: column-reverse;
+    }
 }
 
 .date-arrow {

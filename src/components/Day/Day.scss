@@ -1,0 +1,33 @@
+@import "../../styles/mixins";
+
+.day {
+    &:nth-child(1) {
+        margin-left: 0;
+    }
+    &:nth-child(7) {
+        margin-right: 0;
+    }
+
+    @include event-day-caption();
+    &-events {
+
+    }
+}
+
+.add-event {
+    height: 68px;
+    width: 100%;
+    background-image: url(/plus-event.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #F6F6F6;
+    border-radius: 4px;
+    margin-top: 16px;
+}
+
+
+@include for-mobile() {
+    .day:not(.current) {
+        display: none;
+    }
+}

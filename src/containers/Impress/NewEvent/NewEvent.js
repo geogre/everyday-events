@@ -96,7 +96,7 @@ class NewEvent extends Component {
         if(this.state.form)
         return (
             <div>
-                <div>
+                <div className={"events-header-container"}>
                     <h2 className={"events-header"}>Add Event</h2>
                 </div>
                 <form onSubmit={this.addEventHandler}>

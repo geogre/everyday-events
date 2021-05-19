@@ -48,7 +48,7 @@ class AppWithAuth extends React.Component {
     componentDidMount() {
         Auth.currentAuthenticatedUser()
             .then(user => {
-                console.log(user);
+                //console.log(user);
                 if (user) {
                     this.setState({authState: 'signedIn', user: user});
                 } else {
@@ -59,7 +59,7 @@ class AppWithAuth extends React.Component {
                 this.setState({authState: 'signedOut'});
             });
         Hub.listen('auth', (data) => {
-            console.log(data);
+            //console.log(data);
             switch (data.payload.event) {
                 case 'signIn':
                     this.setState({authState: 'signedIn', user: data.payload.data});

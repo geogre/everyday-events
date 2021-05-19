@@ -77,7 +77,7 @@ class UpdateEvent extends Component {
         }
         EventsApi.updateEvent(formData).then(response => {
             this.props.onUpdateEvent(formData);
-            console.log(response);
+            //console.log(response);
         }).catch(error => {
             //TODO catch
         })
@@ -103,7 +103,7 @@ class UpdateEvent extends Component {
             }
             eevent = (
                 <div>
-                    <div>
+                    <div className={"events-header-container"}>
                         <h2 className={"events-header"}>Update Impression</h2>
                     </div>
                     <form onSubmit={this.updateDataHandler}>

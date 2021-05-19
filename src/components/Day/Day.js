@@ -1,6 +1,6 @@
 import React from 'react';
 import Eevent from '../Event/Eevent';
-import './Day.css';
+import './Day.scss';
 import {Link} from "react-router-dom";
 
 const day = (props ) =>  {
@@ -16,15 +16,13 @@ const day = (props ) =>  {
     }
 
     return (
-        <div className="day">
-            <div className={"day-caption"}>
-                <div className="day-title">{props.caption.dateName}</div>
-                <div className="day-num">{props.caption.dateNum}</div>
+        <div className={"day" + (props.current ? " current" : "")}>
+            <div className={"day-events"}>
+                { events }
+                <Link to={'/my-events/new/' + props.dayKey}>
+                    <div className={"add-event"}></div>
+                </Link>
             </div>
-            { events }
-            <Link to={'/my-events/new/' + props.dayKey}>
-                <div className={"add-event"}></div>
-            </Link>
         </div>
     );
 }
