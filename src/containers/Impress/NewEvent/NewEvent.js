@@ -80,10 +80,6 @@ class NewEvent extends Component {
         this.props.history.goBack();
     }
 
-    state = {
-        form: eventForm
-    }
-
     render () {
         const formElementsArray = [];
         for (let key in this.state.form) {
@@ -99,8 +95,8 @@ class NewEvent extends Component {
                 <div className={"events-header-container"}>
                     <h2 className={"events-header"}>Add Event</h2>
                 </div>
-                <form onSubmit={this.addEventHandler}>
-                    <div className="EventForm">
+                <form className="EventForm" onSubmit={this.addEventHandler}>
+                    <div>
                         {formElementsArray.map(formElement => (
                             <Input
                                 changed={formElement.id === 'date' ? this.dateChangeHandler : this.inputChangedHandler}

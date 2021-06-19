@@ -1,19 +1,36 @@
+@import "../../../styles/mixins";
+
 .event-block {
     display: flex;
     margin-top: 18px;
     .details-block, .album-block {
         flex-grow: 1;
     }
+    .album-block {
+        background: url(/picture_right.svg);
+        position: relative;
+        .buttons-block {
+            position: absolute;
+            right: 160px;
+            bottom: 0px;
+            display: block;
+            align-items: center;
+        }
+    }
     .event-title {
         font-size: 36px;
         font-weight: bolder;
     }
     .event-description {
-        font-size: 16px;
+        font-size: 18px;
+        background-color: antiquewhite;
+        min-height: 320px;
+    }
+    @include for-mobile() {
+        flex-direction: column;
     }
 }
 .buttons-block {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
