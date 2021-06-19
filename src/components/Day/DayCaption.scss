@@ -18,6 +18,16 @@
     @include event-day-caption();
 }
 
+@include for-mobile() {
+    .day-caption {
+        margin: 0 4px;
+        justify-content: center;
+    }
+    .day-title {
+        display: none;
+    }
+}
+
 .day-title {
     font-weight: bold;
 }

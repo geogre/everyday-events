@@ -27,7 +27,11 @@
 
 
 @include for-mobile() {
-    .day:not(.current) {
-        display: none;
+    .day {
+        margin-left: 0;
+        margin-right: 0;
+        &:not(.current) {
+            display: none;
+        }
     }
 }

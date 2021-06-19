@@ -106,8 +106,8 @@ class UpdateEvent extends Component {
                     <div className={"events-header-container"}>
                         <h2 className={"events-header"}>Update Impression</h2>
                     </div>
-                    <form onSubmit={this.updateDataHandler}>
-                        <div className="EventForm">
+                    <form className="EventForm" onSubmit={this.updateDataHandler}>
+                        <div>
                             {formElementsArray.map(formElement => (
                                 <Input
                                     changed={formElement.id === 'date' ? this.dateChangeHandler : this.inputChangedHandler}
