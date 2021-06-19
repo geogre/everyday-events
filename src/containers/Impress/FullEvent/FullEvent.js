@@ -100,21 +100,22 @@ class FullEvent extends Component {
                 <div className={"event-block"}>
                     <div className={"details-block"}>
                         <DateDecorated date={moment(this.props.currentEvent.date)} />
-                        <p className="event-title">{this.props.currentEvent.title}</p>
-                        <p className="event-description">{this.props.currentEvent.description}</p>
-                        <div className={"buttons-block"}>
-                            <Link className="button button-action" to={'/my-events/update/' + this.props.currentEvent.id}>
-                                Update
-                            </Link>
-                            <button onClick={this.deleteDataHandler} className="button button-action">Delete</button>
-                            <button onClick={this.cancelHandler} className={"button"}>Cancel</button>
+                        <div className={"event-title-block"}>
+                            <p className="event-title">{this.props.currentEvent.title}</p>
+                            <div className={"buttons-block"}>
+                                <Link to={'/my-events/update/' + this.props.currentEvent.id}>
+                                    <img src={"/edit.png"} alt={"Edit event"} />
+                                </Link>
+                                <img src={"/trash.png"} onClick={this.deleteDataHandler}></img>
+                                <img src={"/back.png"} onClick={this.cancelHandler}></img>
+                            </div>
                         </div>
+                        <p className="event-description">{this.props.currentEvent.description}</p>
                     </div>
                     <div className={"album-block"} >
-                        <S3Album ref={this.album} path={this.getAlbumPath()} pickerTitle={'Add new image'} picker select theme={FullEventTheme}  onSelect={this.onSelectHandler}/>
+                        <S3Album ref={this.album} path={this.getAlbumPath()} pickerTitle={' '} picker select theme={FullEventTheme}  onSelect={this.onSelectHandler}/>
                         <div className={"buttons-block"}>
-                            <button onClick={this.deleteImagesHandler} className={`button ${this.state.hasSelectedImages ? "button-success" : "hide"}`}>Delete Selected</button>
-
+                            <img src={"/delete.png"} onClick={this.deleteImagesHandler} className={`${this.state.hasSelectedImages ? "" : "hide"}`}></img>
                         </div>
                     </div>
                 </div>
