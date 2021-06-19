@@ -3,7 +3,11 @@ export default
     overlaySelected: {
         borderStyle: 'solid',
         borderWidth: 'thick',
-        borderColor: 'red'
+        borderColor: 'red',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        top: '0px'
     },
     album: {
         display: 'flex'
@@ -26,19 +30,14 @@ export default
         alignItems: 'center',
         position: 'absolute',
         right: '0px',
-        bottom: '0px'
+        top: '0px'
     },
     photoPickerButton: {
-        height: '52px',
-        marginRight: '16px',
-        lineHeight: '52px',
-        border: 'solid 1px black',
-        borderRadius: '3px',
-        minWidth: '144px',
-        fontSize: '16px',
+        height: '64px',
+        width: '64px',
         display: 'inline-block',
-        textAlign: 'center',
-        background: 'black',
-        color: 'white'
+        backgroundImage: 'url(/add-image.png)',
+        backgroundPosition: 'center',
+        borderWidth: '0px',
     }
 }
