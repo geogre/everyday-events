@@ -12,6 +12,7 @@ import moment from "moment";
 class UpdateEvent extends Component {
 
     componentDidMount () {
+        console.log('updateevent');
         if ( this.props.match.params.eventId ) {
             EventsApi.getEvent(this.props.match.params.eventId).then(response => {
                 this.setFormValues(response.data.event);

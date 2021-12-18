@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import './Impress.scss';
 import Eevents from './Eevents/Eevents';
@@ -7,7 +7,7 @@ import FullEvent from "./FullEvent/FullEvent";
 import UserEvent from "./UserEvent/UserEvent";
 import UpdateEvent from "./UpdateEvent/UpdateEvent";
 
-const impress = (props ) =>  {
+const Impress = () =>  {
 
     const loggedInRoutes =
         <Switch>
@@ -22,13 +22,11 @@ const impress = (props ) =>  {
             <Route path="/:userId/:eventId" component={UserEvent} />
         </Switch>;
 
-    const actualRoutes = props.authState === 'signedIn' || true ? loggedInRoutes : loggedOutRoutes;
-
     return (
         <div className={'AppContent'}>
-            {actualRoutes}
+            {loggedInRoutes}
         </div>
     );
 }
 
-export default impress;
+export default Impress;

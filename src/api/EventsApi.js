@@ -25,6 +25,7 @@ const EventsApi = {
 
     async getEvent(id)
     {
+        console.log('getting event');
         let path = config.basePath + id;
         return API.get(config.apiName, path, { // OPTIONAL
             headers: { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` },

@@ -25,6 +25,7 @@ class FullEvent extends Component {
     }
 
     componentDidMount () {
+        console.log('componentdidmount');
         if ( this.props.match.params.eventId ) {
             EventsApi.getEvent(this.props.match.params.eventId).then(response => {
                 this.props.onGetEvent(response.data.event);
