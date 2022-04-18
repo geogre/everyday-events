@@ -10,7 +10,8 @@ export default
         top: '0px'
     },
     album: {
-        display: 'flex'
+        display: 'flex',
+        flexWrap: 'wrap'
     },
     photo: {
         borderStyle: 'solid',

@@ -9,6 +9,7 @@ import {Provider} from 'react-redux';
 import eventsReducer from './store/reducers/events-reducer';
 import datesReducer from "./store/reducers/dates-reducer";
 import 'bootstrap/dist/css/bootstrap.css';
+import AuthContextProvider from "./context/AuthContextProvider";
 
 const composeEnhancers = process.env.APP_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,7 +20,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, composeEnhancers());
 
-const RoutedApp = withRouter(props => <AppWithAuth {...props}/>);
+const RoutedApp = withRouter(props => <AuthContextProvider><AppWithAuth {...props}/></AuthContextProvider>);
 ReactDOM.render(<Provider store={store}><BrowserRouter><RoutedApp /></BrowserRouter></Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

@@ -23,6 +23,7 @@ class EverydayEvents extends Component
     }
 
     componentDidUpdate(prevProps) {
+        console.log('is updated');
         if (this.props.currentDate !== prevProps.currentDate) {
             EventsApi.getEvents(this.props.dateInfo.startDate, this.props.dateInfo.endDate).then(response => {
                 this.props.onGetEvents(response.data.events);
