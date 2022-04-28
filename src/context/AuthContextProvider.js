@@ -4,7 +4,7 @@ import {Hub} from "aws-amplify";
 
 const defaultState = {
     isLoggedIn: false,
-    isLoading: true,
+    isLoading: false,
     user: null
 };
 

@@ -85,7 +85,7 @@ class UpdateEvent extends Component {
     }
 
     cancelHandler = () => {
-        this.props.history.goBack();
+        // TODO: replace this.props.history.goBack();
     }
 
     state = {

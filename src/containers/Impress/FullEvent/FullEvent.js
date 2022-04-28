@@ -1,79 +1,78 @@
-import React, { Component } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './FullEvent.scss';
 import EventsApi from "../../../api/EventsApi";
 import {Link} from "react-router-dom";
 import * as actionCreators from "../../../store/actions/actions";
 import {connect} from "react-redux";
-import {Redirect} from "react-router";
+import {useParams, Navigate} from "react-router-dom";
 import {S3Album} from "aws-amplify-react";
 import {Storage} from "aws-amplify";
 import FullEventTheme from "./FullEventTheme";
 import DateDecorated from "../../../components/DateDecorated/DateDecorated";
 import moment from 'moment';
+import {useNavigate} from "react-router";
 
-class FullEvent extends Component {
+function FullEvent(props) {
 
-    constructor(props) {
-        super(props);
-        this.album = React.createRef();
-    }
+    const navigate = useNavigate();
+    const album = React.createRef();
+    const { eventId } = useParams();
+    const [isDeleted, setIsDeleted] = useState(false);
+    const [hasSelectedImages, setHasSelectedImages] = useState(false);
 
-    state = {
-        deleted: false,
-        hasSelectedImages: false
-    }
 
-    componentDidMount () {
+    useEffect(() => {
         console.log('componentdidmount');
-        if ( this.props.match.params.eventId ) {
-            EventsApi.getEvent(this.props.match.params.eventId).then(response => {
-                this.props.onGetEvent(response.data.event);
+        if ( eventId ) {
+            EventsApi.getEvent(eventId).then(response => {
+                props.onGetEvent(response.data.event);
             } ).catch(error => {
                 //TODO catch
             });
         }
-    }
+    }, []);
 
-    deleteDataHandler = () => {
-        EventsApi.deleteEvent(this.props.currentEvent.id).then(
+
+
+    const deleteDataHandler = () => {
+        EventsApi.deleteEvent(props.currentEvent.id).then(
             () => {
-                return Promise.all(this.album.current.state.items.map(item => {
+                return Promise.all(album.current.state.items.map(item => {
                     return Storage.remove(item.key, {  })
                         .then(() => item.key)
                         .catch(error => error);
                 }));
             }
         ).then(response => {
-            this.setState({deleted: true});
+            setIsDeleted(true);
         }).catch(error => {
             //TODO catch
         })
     }
 
-    getAlbumPath = () => {
-        //console.log(this.props.currentEvent.userId + '/' + this.props.currentEvent.date + '/' + this.props.currentEvent.id);
-        return this.props.currentEvent.userId + '/' + this.props.currentEvent.date + '/' + this.props.currentEvent.id;
+    const getAlbumPath = () => {
+        return props.currentEvent.userId + '/' + props.currentEvent.date + '/' + props.currentEvent.id;
     }
 
-    onSelectHandler = () => {
+    const onSelectHandler = () => {
         const hasSelectedItems = (() => {
-            for(let i=0; i<this.album.current.state.items.length; i++) {
-                if (this.album.current.state.items[i].selected) {
+            for(let i=0; i<album.current.state.items.length; i++) {
+                if (album.current.state.items[i].selected) {
                     return true;
                 }
             }
             return false;
         })();
-        this.setState({hasSelectedImages: hasSelectedItems});
+        setHasSelectedImages(hasSelectedItems);
     }
 
-    cancelHandler = () => {
-        this.props.history.goBack();
+    const cancelHandler = () => {
+        navigate('/');
     }
 
-    deleteImagesHandler = () => {
-        Promise.all(this.album.current.state.items.map(item => {
+    const deleteImagesHandler = () => {
+        Promise.all(album.current.state.items.map(item => {
             if(item.selected) {
                 return Storage.remove(item.key, {  })
                     .then(() => item.key)
@@ -82,49 +81,49 @@ class FullEvent extends Component {
             return Promise.resolve();
         }))
         .then(deletedItems => {
-            const filteredItems = this.album.current.state.items.filter(item => {
+            const filteredItems = album.current.state.items.filter(item => {
                 return !deletedItems.includes(item.key);
             });
-            this.album.current.setState({
+            album.current.setState({
                 items: filteredItems,
                 ts: new Date().getTime()
             });
         })
     }
 
-    render () {
-        let eevent = <p style={{ textAlign: 'center' }}>Loading...</p>;
-        if(this.state.deleted) {
-            eevent = <Redirect to="/"></Redirect>;
-        } else if ( this.props.currentEvent ) {
-            eevent = (
-                <div className={"event-block"}>
-                    <div className={"details-block"}>
-                        <DateDecorated date={moment(this.props.currentEvent.date)} />
-                        <div className={"event-title-block"}>
-                            <p className="event-title">{this.props.currentEvent.title}</p>
-                            <div className={"buttons-block"}>
-                                <Link to={'/my-events/update/' + this.props.currentEvent.id}>
-                                    <img src={"/edit.png"} alt={"Edit event"} />
-                                </Link>
-                                <img src={"/trash.png"} onClick={this.deleteDataHandler}></img>
-                                <img src={"/back.png"} onClick={this.cancelHandler}></img>
-                            </div>
-                        </div>
-                        <p className="event-description">{this.props.currentEvent.description}</p>
-                    </div>
-                    <div className={"album-block"} >
-                        <S3Album ref={this.album} path={this.getAlbumPath()} pickerTitle={' '} picker select theme={FullEventTheme}  onSelect={this.onSelectHandler}/>
+
+    let eevent = <p style={{ textAlign: 'center' }}>Loading...</p>;
+    if(isDeleted) {
+        eevent = <Navigate to="/" />;
+    } else if ( props.currentEvent ) {
+        eevent = (
+            <div className={"event-block"}>
+                <div className={"details-block"}>
+                    <DateDecorated date={moment(props.currentEvent.date)} />
+                    <div className={"event-title-block"}>
+                        <p className="event-title">{props.currentEvent.title}</p>
                         <div className={"buttons-block"}>
-                            <img src={"/delete.png"} onClick={this.deleteImagesHandler} className={`${this.state.hasSelectedImages ? "" : "hide"}`}></img>
+                            <Link to={'/my-events/update/' + props.currentEvent.id}>
+                                <img src={"/edit.png"} alt={"Edit event"} />
+                            </Link>
+                            <img src={"/trash.png"} onClick={deleteDataHandler}></img>
+                            <img src={"/back.png"} onClick={cancelHandler}></img>
                         </div>
+                    </div>
+                    <p className="event-description">{props.currentEvent.description}</p>
+                </div>
+                <div className={"album-block"} >
+                    <S3Album ref={album} path={getAlbumPath()} pickerTitle={' '} picker select theme={FullEventTheme}  onSelect={onSelectHandler}/>
+                    <div className={"buttons-block"}>
+                        <img src={"/delete.png"} onClick={deleteImagesHandler} className={`${hasSelectedImages ? "" : "hide"}`}></img>
                     </div>
                 </div>
+            </div>
 
-            );
-        }
-        return eevent;
+        );
     }
+    return eevent;
+
 }
 
 const mapStateToProps = state => {

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import AppWithAuth from './containers/AppWithAuth';
-import {BrowserRouter, withRouter} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import {compose, createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import eventsReducer from './store/reducers/events-reducer';
@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, composeEnhancers());
 
-const RoutedApp = withRouter(props => <AuthContextProvider><AppWithAuth {...props}/></AuthContextProvider>);
+const RoutedApp = props => <AuthContextProvider><AppWithAuth {...props}/></AuthContextProvider>;
 ReactDOM.render(<Provider store={store}><BrowserRouter><RoutedApp /></BrowserRouter></Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
