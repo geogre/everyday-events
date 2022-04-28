@@ -1,5 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './Impress.scss';
 import Eevents from './Eevents/Eevents';
 import NewEvent from "./NewEvent/NewEvent";
@@ -10,17 +10,17 @@ import UpdateEvent from "./UpdateEvent/UpdateEvent";
 const Impress = () =>  {
 
     const loggedInRoutes =
-        <Switch>
-            <Route path="/" exact component={Eevents} />
-            <Route path="/my-events/new/:currentDate?" component={NewEvent} />
-            <Route path="/my-events/update/:eventId" component={UpdateEvent} />
-            <Route path="/my-events/:eventId" strict component={FullEvent} />
-        </Switch>;
+        (<Routes>
+            <Route path="/" exact element={<Eevents />} />
+            <Route path="/my-events/new/:currentDate?" element={<NewEvent />} />
+            <Route path="/my-events/update/:eventId" element={<UpdateEvent />} />
+            <Route path="/my-events/:eventId" strict element={<FullEvent />} />
+        </Routes>);
 
     const loggedOutRoutes =
-        <Switch>
-            <Route path="/:userId/:eventId" component={UserEvent} />
-        </Switch>;
+        (<Routes>
+            <Route path="/:userId/:eventId" element={<UserEvent />} />
+        </Routes>);
 
     return (
         <div className={'AppContent'}>

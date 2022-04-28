@@ -7,9 +7,9 @@ import eventForm from "../../../forms/event-form";
 import EventsApi from "../../../api/EventsApi";
 import * as actionCreators from "../../../store/actions/actions";
 import {connect} from "react-redux";
-import {Redirect} from "react-router";
 import moment from "moment";
 import slugify from "slugify";
+import { Navigate } from "react-router-dom";
 
 class NewEvent extends Component {
     state = {
@@ -77,7 +77,7 @@ class NewEvent extends Component {
     }
 
     cancelHandler = () => {
-        this.props.history.goBack();
+        // TODO: replace this.props.history.goBack();
     }
 
     render () {
@@ -116,7 +116,7 @@ class NewEvent extends Component {
                 </form>
             </div>
         );
-        return <Redirect to="/"></Redirect>;
+        return <Navigate to="/" />;
     }
 }
 
