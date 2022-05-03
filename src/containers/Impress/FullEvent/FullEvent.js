@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 import * as actionCreators from "../../../store/actions/actions";
 import {connect} from "react-redux";
 import {useParams, Navigate} from "react-router-dom";
-import {S3Album} from "aws-amplify-react";
 import {Storage} from "aws-amplify";
 import FullEventTheme from "./FullEventTheme";
 import DateDecorated from "../../../components/DateDecorated/DateDecorated";
@@ -20,7 +19,6 @@ function FullEvent(props) {
     const { eventId } = useParams();
     const [isDeleted, setIsDeleted] = useState(false);
     const [hasSelectedImages, setHasSelectedImages] = useState(false);
-
 
     useEffect(() => {
         console.log('componentdidmount');
@@ -113,7 +111,6 @@ function FullEvent(props) {
                     <p className="event-description">{props.currentEvent.description}</p>
                 </div>
                 <div className={"album-block"} >
-                    <S3Album ref={album} path={getAlbumPath()} pickerTitle={' '} picker select theme={FullEventTheme}  onSelect={onSelectHandler}/>
                     <div className={"buttons-block"}>
                         <img src={"/delete.png"} onClick={deleteImagesHandler} className={`${hasSelectedImages ? "" : "hide"}`}></img>
                     </div>

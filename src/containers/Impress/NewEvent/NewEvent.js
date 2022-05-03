@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {useEffect, useState} from 'react';
 import './NewEvent.scss';
 import '../EventForm/EventForm.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,46 +10,48 @@ import {connect} from "react-redux";
 import moment from "moment";
 import slugify from "slugify";
 import { Navigate } from "react-router-dom";
+import {useParams} from "react-router";
 
-class NewEvent extends Component {
-    state = {
-        form: eventForm,
-    }
+function NewEvent (props) {
 
-    componentDidMount () {
-        if (this.props.match.params.currentDate) {
-            this.dateChangeHandler(this.props.match.params.currentDate);
-        }
-    }
-
-    inputChangedHandler = (event) => {
-        const updatedForm = {
-            ...this.state.form
-        };
-        const updatedFormElement = {
-            ...updatedForm[event.target.name]
-        };
-        updatedFormElement.touched = true;
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation)
-        updatedForm[event.target.name] = updatedFormElement;
-        this.setState({form: updatedForm});
-    }
-
-    dateChangeHandler = (currentDate) => {
+    const dateChangeHandler = (currentDate) => {
         const theDate = moment(currentDate);
         const updatedForm = {
-            ...this.state.form
+            ...state.form
         };
         const updatedFormElement = {
             ...updatedForm['date']
         };
         updatedFormElement.value = theDate.format('YYYY-MM-DD');
         updatedForm['date'] = updatedFormElement;
-        this.setState({form: updatedForm});
+        setState({form: updatedForm});
     }
 
-    checkValidity = (value, rules) => {
+    const [state, setState] = useState({form: eventForm});
+    const params = useParams();
+    useEffect(() => {
+        if (params.currentDate) {
+            dateChangeHandler(params.currentDate);
+        }
+    }, [params.currentDate]);
+
+
+
+    const inputChangedHandler = (event) => {
+        const updatedForm = {
+            ...state.form
+        };
+        const updatedFormElement = {
+            ...updatedForm[event.target.name]
+        };
+        updatedFormElement.touched = true;
+        updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation)
+        updatedForm[event.target.name] = updatedFormElement;
+        setState({form: updatedForm});
+    }
+
+    const checkValidity = (value, rules) => {
         let isValid = false;
 
         if (rules.required) {
@@ -61,63 +63,62 @@ class NewEvent extends Component {
         return isValid;
     }
 
-    addEventHandler = (event) => {
+    const addEventHandler = (event) => {
         event.preventDefault();
         const formData = {};
-        for (let formElementIdentifier in this.state.form) {
-            formData[formElementIdentifier] = this.state.form[formElementIdentifier].value;
+        for (let formElementIdentifier in state.form) {
+            formData[formElementIdentifier] = state.form[formElementIdentifier].value;
         }
         formData['id'] = formData['date'] + "-" + slugify(formData['title']);
         EventsApi.addEvent(formData).then(response => {
-            this.setState({form: null});
-            this.props.onAddEvent(formData);
+            setState({form: null});
+            props.onAddEvent(formData);
         }).catch(error => {
             //TODO catch
         })
     }
 
-    cancelHandler = () => {
+    const cancelHandler = () => {
         // TODO: replace this.props.history.goBack();
     }
 
-    render () {
-        const formElementsArray = [];
-        for (let key in this.state.form) {
-            formElementsArray.push({
-                id: key,
-                config: this.state.form[key]
-            });
-        }
 
-        if(this.state.form)
-        return (
-            <div>
-                <div className={"events-header-container"}>
-                    <h2 className={"events-header"}>Add Event</h2>
-                </div>
-                <form className="EventForm" onSubmit={this.addEventHandler}>
-                    <div>
-                        {formElementsArray.map(formElement => (
-                            <Input
-                                changed={formElement.id === 'date' ? this.dateChangeHandler : this.inputChangedHandler}
-                                key={formElement.id}
-                                invalid={!formElement.config.valid}
-                                touched={formElement.config.touched}
-                                label={formElement.config.label}
-                                elementType={formElement.config.elementType}
-                                elementConfig={{name: formElement.id, ...formElement.config.elementConfig}}
-                                value={formElement.config.value} />
-                        ))}
-                        <div className={"buttons-block"}>
-                            <button className={"button button-action"}>Add</button>
-                            <button type={"button"} onClick={this.cancelHandler} className={"button"}>Cancel</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        );
-        return <Navigate to="/" />;
+    const formElementsArray = [];
+    for (let key in state.form) {
+        formElementsArray.push({
+            id: key,
+            config: state.form[key]
+        });
     }
+
+    if(state.form)
+    return (
+        <div>
+            <div className={"events-header-container"}>
+                <h2 className={"events-header"}>Add Event</h2>
+            </div>
+            <form className="EventForm" onSubmit={addEventHandler}>
+                <div>
+                    {formElementsArray.map(formElement => (
+                        <Input
+                            changed={formElement.id === 'date' ? dateChangeHandler : inputChangedHandler}
+                            key={formElement.id}
+                            invalid={!formElement.config.valid}
+                            touched={formElement.config.touched}
+                            label={formElement.config.label}
+                            elementType={formElement.config.elementType}
+                            elementConfig={{name: formElement.id, ...formElement.config.elementConfig}}
+                            value={formElement.config.value} />
+                    ))}
+                    <div className={"buttons-block"}>
+                        <button className={"button button-action"}>Add</button>
+                        <button type={"button"} onClick={cancelHandler} className={"button"}>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    );
+    return <Navigate to="/" />;
 }
 
 const mapDispatchToProps = dispatch => {

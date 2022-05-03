@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Auth} from "@aws-amplify/auth";
-import {Hub} from "aws-amplify";
+import {Hub, Auth} from "aws-amplify";
 
 const defaultState = {
     isLoggedIn: false,
@@ -12,10 +11,10 @@ export const AuthContext = React.createContext(defaultState);
 
 const AuthContextProvider = (props) => {
     const [state, setState] = useState(defaultState);
-
     useEffect(() => {
         Auth.currentAuthenticatedUser()
             .then(user => {
+                console.log(user);
                 if (user) {
                     setState({isLoggedIn: true, user: user});
                 } else {
@@ -23,8 +22,10 @@ const AuthContextProvider = (props) => {
                 }
             })
             .catch(err => {
+                console.log('something is wrong');
                 setState(defaultState);
             });
+
         Hub.listen('auth', (data) => {
                 switch (data.payload.event) {
                     case 'signIn':
@@ -40,6 +41,8 @@ const AuthContextProvider = (props) => {
                         setState({isLoggedIn: false, user: null, isLoading: false});
                         break;
                     case 'configured':
+                        break;
+                    default:
                         break;
                 }
             }

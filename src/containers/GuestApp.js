@@ -1,5 +1,5 @@
 import React from 'react';
-import {AmplifyAuthenticator, AmplifySignIn} from "@aws-amplify/ui-react";
+import { Authenticator } from "@aws-amplify/ui-react";
 
 const GuestApp = () => {
     return (
@@ -9,11 +9,7 @@ const GuestApp = () => {
             </div>
             <div className={'HomeContent'}>
                 <div className={"SignInFormWrapper"}>
-                    <AmplifyAuthenticator>
-
-                        <AmplifySignIn className={"SignInForm"} headerText="Personal storage of your memories"/>
-
-                    </AmplifyAuthenticator>
+                    <Authenticator loginMechanisms={['username']} />
                 </div>
                 <div className={"jumbotronWrapper"}>
                     <div className="jumbotron">
