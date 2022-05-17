@@ -51,10 +51,11 @@ const EventsApi = {
     async updateEvent(currentEvent)
     {
         let path = config.basePath + currentEvent.id;
+        let fixedEvent = {...currentEvent, description: currentEvent.description.replace(/(?:\r\n|\r|\n)/g, '\\n')};
         let myInit = { // OPTIONAL
             headers: { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` },
             response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-            body: currentEvent,
+            body: fixedEvent,
 
         };
         return API.put(config.apiName, path, myInit).then(response => response).catch(error => {
@@ -66,10 +67,11 @@ const EventsApi = {
 
     async addEvent(newEvent)
     {
+        let fixedEvent = {...newEvent, description: newEvent.description.replace(/(?:\r\n|\r|\n)/g, '\\n')};
         let myInit = { // OPTIONAL
             headers: { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` },
             response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-            body: newEvent,
+            body: fixedEvent,
 
         };
         return API.post(config.apiName, config.basePath, myInit).then(response => response).catch(error => {

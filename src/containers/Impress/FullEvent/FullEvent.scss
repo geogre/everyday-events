@@ -2,21 +2,10 @@
 
 .event-block {
     display: flex;
+    flex-direction: column;
     margin-top: 18px;
     .details-block, .album-block {
-        flex: 1 1 0px;
-    }
-    .album-block {
-        max-width: 50%;
-        //background: url(/picture_right.svg);
-        position: relative;
-        .buttons-block {
-            position: absolute;
-            right: 70px;
-            top: 0px;
-            display: block;
-            align-items: center;
-        }
+        width: 100%;
     }
     .event-title-block {
         display: flex;
@@ -30,7 +19,8 @@
     .event-description {
         font-size: 18px;
         background-color: antiquewhite;
-        min-height: 320px;
+        padding: 20px;
+        white-space: pre-wrap;
     }
     @include for-mobile() {
         flex-direction: column;

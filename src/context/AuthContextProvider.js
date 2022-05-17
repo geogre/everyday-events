@@ -3,7 +3,7 @@ import {Hub, Auth} from "aws-amplify";
 
 const defaultState = {
     isLoggedIn: false,
-    isLoading: false,
+    isLoading: true,
     user: null
 };
 
