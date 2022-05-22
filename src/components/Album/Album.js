@@ -6,14 +6,19 @@ import './Album.scss';
 const Album = (props) => {
 	const [items, setItems] = useState([]);
 	const [selectedItems, setSelectedItems] = useState([]);
+	const [addImageIsActive, setAddImageIsActive] = useState(false);
 
 	const selectItem = (item) => {
 		setSelectedItems(prevState => [...prevState, item]);
-	}
+	};
 
 	const unselectItem = (deletedItem) => {
 		setSelectedItems(prevState => prevState.filter(item => item !== deletedItem));
-	}
+	};
+
+	const toggleAddImageActivity = () => {
+		setAddImageIsActive(addImageIsActive => !addImageIsActive);
+	};
 
 	const processSelect = event => {
 		const imgEl = event.target;
@@ -62,6 +67,7 @@ const Album = (props) => {
 				}
 			}).then(() => {
 				e.target.value = null;
+				setAddImageIsActive(false);
 				getItems(props.path);
 			});
 		}
@@ -74,16 +80,17 @@ const Album = (props) => {
 	}, [EventsStorage.listFiles, props.path]);
 
 	return (<div className="album">
-		<form name="uploadForm" encType="multipart/form-data">
-			<div>
-				<input id="uploadInput" type="file" name="myFiles" multiple onChange={fileUploadHandler} />
-			</div>
-		</form>
 		{items.map(item => {
 			return <img key={item.key} data-key={item.key} src={item.path} onClick={processSelect} className={selectedItems.includes(item.key) ? 'selected' : ''} alt='' />
 		})}
 		<div className={"buttons-block"}>
 			<img src={"/delete.png"} onClick={deleteImagesHandler} className={`${selectedItems.length > 0 ? "" : "hide"}`}></img>
+			<form className={`${selectedItems.length > 0 ? "hide" : ""}`} name="uploadForm" encType="multipart/form-data">
+				<div>
+					<img src={"/add-image.png"} onClick={toggleAddImageActivity} />
+					<input className={addImageIsActive ? "" : "hide"} id="uploadInput" type="file" name="myFiles" multiple onChange={fileUploadHandler} />
+				</div>
+			</form>
 		</div>
 	</div>)
 };

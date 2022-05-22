@@ -1,7 +1,14 @@
+@import "../../styles/mixins";
+
 .decorated-date {
   line-height: 2em;
   display: inline-block;
   border-bottom: solid 3px #BCE3DF;
+
+  @include for-mobile {
+    margin-bottom: 16px;
+  }
+
   &-day {
     font-size: 48px;
   }

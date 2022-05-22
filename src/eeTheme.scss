@@ -1,3 +1,5 @@
+@import "styles/mixins";
+
 .amplify-button {
     background: linear-gradient(163.16deg, #4A4A4A 11.54%, #131313 83.83%);
     border-radius: 3px;
@@ -8,4 +10,7 @@
     font-size: 14px;
     line-height: 16px;
     color: #FFFFFF;
+    @include for-mobile() {
+        width: 96px;
+    }
 }

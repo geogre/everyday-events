@@ -10,6 +10,9 @@
     .event-title-block {
         display: flex;
         justify-content: stretch;
+        @include for-mobile() {
+            flex-direction: column-reverse;
+        }
     }
     .event-title {
         font-size: 36px;
@@ -29,4 +32,12 @@
 .buttons-block {
     display: flex;
     align-items: center;
+    img {
+        &:not(:hover) {
+            filter: grayscale(100%);
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }

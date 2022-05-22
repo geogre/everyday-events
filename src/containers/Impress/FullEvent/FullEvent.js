@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 import * as actionCreators from "../../../store/actions/actions";
 import {connect} from "react-redux";
 import {useParams, Navigate} from "react-router-dom";
-import {Storage} from "aws-amplify";
 import DateDecorated from "../../../components/DateDecorated/DateDecorated";
 import moment from 'moment';
 import {useNavigate} from "react-router";

@@ -15,8 +15,8 @@ const App = () => {
     return (
         <div className={"App"}>
             <div className={"AppHeader AppHeader_user"}>
-                <img src={"/logo.svg"} />
-                <Button onClick={logout}>Logout</Button>
+                <div><img src={"/logo.svg"} /></div>
+                <div><Button onClick={logout}>Logout</Button></div>
             </div>
             <Impress />
         </div>

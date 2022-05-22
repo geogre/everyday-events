@@ -21,9 +21,6 @@ function EventForm(props) {
 	return (
 		<form className="EventForm" onSubmit={onSubmitHander}>
 			<div>
-				<div className="form-group Input hidden">
-					<label className="Label">Event</label>
-				</div>
 				<div className="form-group Input">
 					<label className="Label">Title</label>
 					<input className="InputElement" name="title" type="text" value={title}  onChange={e => setTitle(e.target.value)} />
@@ -31,7 +28,8 @@ function EventForm(props) {
 				<div className="form-group Input ">
 					<label className="Label">Date</label>
 					<DatePicker
-						format="yyyy-MM-dd"
+						clearIcon={null}
+						format="y-MM-dd"
 						className={"form-control Input"}
 						onChange={dateChangeHandler}
 						value={date === '' ? new Date() : new Date(date)}

@@ -5,7 +5,7 @@ const GuestApp = () => {
     return (
         <div className={`AppWrapper AppWrapper_Guest'}`}>
             <div className={"AppHeader AppHeader_guest"}>
-                <img className={"logo"} src={"/logo.svg"}/>
+                <img className={"logo"} src={"/logo.svg"} />
             </div>
             <div className={'HomeContent'}>
                 <div className={"SignInFormWrapper"}>

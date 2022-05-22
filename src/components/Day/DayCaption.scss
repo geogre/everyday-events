@@ -16,18 +16,35 @@
         margin-right: 0;
     }
     @include event-day-caption();
+    @include for-mobile() {
+        padding: 0;
+    }
 }
 
 @include for-mobile() {
     .day-caption {
         margin: 0 4px;
         justify-content: center;
+        line-height: 32px;
     }
     .day-title {
         display: none;
+    }
+    .separator-part {
+        height: 3px;
+        line-height: 3px;
+        vertical-align: center;
+        text-align: center;
     }
 }
 
 .day-title {
     font-weight: bold;
+}
+
+.day-num {
+    display: flex;
+    @include for-mobile() {
+        flex-direction: column;
+    }
 }

@@ -32,6 +32,7 @@ amplify-authenticator {
 .AppHeader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   &_guest {
     position: absolute;
     padding-left: 160px;
@@ -117,6 +118,9 @@ div#root {
 
 .events-header-container {
    margin-bottom: 32px;
+  @include for-mobile() {
+    margin-bottom: 16px;
+  }
 }
 
 .events-header {

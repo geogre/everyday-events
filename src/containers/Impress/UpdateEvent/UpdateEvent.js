@@ -7,10 +7,12 @@ import * as actionCreators from "../../../store/actions/actions";
 import {connect} from "react-redux";
 import { useParams } from "react-router-dom";
 import EventForm from "../EventForm/EventForm";
+import {useNavigate} from "react-router";
 
 function UpdateEvent(props) {
 
     const { eventId } = useParams();
+    const navigate = useNavigate();
 
     const {onUpdateEvent, onGetEvent, currentEvent} = props;
 
@@ -29,6 +31,7 @@ function UpdateEvent(props) {
     const updateDataHandler = (formData) => {
         EventsApi.updateEvent(formData).then(response => {
             onUpdateEvent(formData);
+            navigate(-1);
             //console.log(response);
         }).catch(error => {
             //TODO catch
@@ -36,7 +39,7 @@ function UpdateEvent(props) {
     }
 
     const cancelHandler = () => {
-        // TODO: replace this.props.history.goBack();
+        navigate(-1);
     }
 
     let eevent = <p style={{ textAlign: 'center' }}>Loading...</p>;
@@ -46,7 +49,7 @@ function UpdateEvent(props) {
                 <div className={"events-header-container"}>
                     <h2 className={"events-header"}>Update Impression</h2>
                 </div>
-                <EventForm {...currentEvent} onSubmit={updateDataHandler} />
+                <EventForm {...currentEvent} onSubmit={updateDataHandler} onCancel={cancelHandler} />
             </div>
         );
     }
