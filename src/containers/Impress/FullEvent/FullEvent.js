@@ -6,21 +6,16 @@ import {Link} from "react-router-dom";
 import * as actionCreators from "../../../store/actions/actions";
 import {connect} from "react-redux";
 import {useParams, Navigate} from "react-router-dom";
-import {S3Album} from "aws-amplify-react";
-import {Storage} from "aws-amplify";
-import FullEventTheme from "./FullEventTheme";
 import DateDecorated from "../../../components/DateDecorated/DateDecorated";
 import moment from 'moment';
 import {useNavigate} from "react-router";
+import Album from "../../../components/Album/Album";
 
 function FullEvent(props) {
 
     const navigate = useNavigate();
-    const album = React.createRef();
     const { eventId } = useParams();
     const [isDeleted, setIsDeleted] = useState(false);
-    const [hasSelectedImages, setHasSelectedImages] = useState(false);
-
 
     useEffect(() => {
         console.log('componentdidmount');
@@ -33,18 +28,8 @@ function FullEvent(props) {
         }
     }, []);
 
-
-
     const deleteDataHandler = () => {
-        EventsApi.deleteEvent(props.currentEvent.id).then(
-            () => {
-                return Promise.all(album.current.state.items.map(item => {
-                    return Storage.remove(item.key, {  })
-                        .then(() => item.key)
-                        .catch(error => error);
-                }));
-            }
-        ).then(response => {
+        EventsApi.deleteEvent(props.currentEvent.id).then(response => {
             setIsDeleted(true);
         }).catch(error => {
             //TODO catch
@@ -55,42 +40,9 @@ function FullEvent(props) {
         return props.currentEvent.userId + '/' + props.currentEvent.date + '/' + props.currentEvent.id;
     }
 
-    const onSelectHandler = () => {
-        const hasSelectedItems = (() => {
-            for(let i=0; i<album.current.state.items.length; i++) {
-                if (album.current.state.items[i].selected) {
-                    return true;
-                }
-            }
-            return false;
-        })();
-        setHasSelectedImages(hasSelectedItems);
-    }
-
     const cancelHandler = () => {
         navigate('/');
     }
-
-    const deleteImagesHandler = () => {
-        Promise.all(album.current.state.items.map(item => {
-            if(item.selected) {
-                return Storage.remove(item.key, {  })
-                    .then(() => item.key)
-                    .catch(error => error);
-            }
-            return Promise.resolve();
-        }))
-        .then(deletedItems => {
-            const filteredItems = album.current.state.items.filter(item => {
-                return !deletedItems.includes(item.key);
-            });
-            album.current.setState({
-                items: filteredItems,
-                ts: new Date().getTime()
-            });
-        })
-    }
-
 
     let eevent = <p style={{ textAlign: 'center' }}>Loading...</p>;
     if(isDeleted) {
@@ -113,15 +65,12 @@ function FullEvent(props) {
                     <p className="event-description">{props.currentEvent.description}</p>
                 </div>
                 <div className={"album-block"} >
-                    <S3Album ref={album} path={getAlbumPath()} pickerTitle={' '} picker select theme={FullEventTheme}  onSelect={onSelectHandler}/>
-                    <div className={"buttons-block"}>
-                        <img src={"/delete.png"} onClick={deleteImagesHandler} className={`${hasSelectedImages ? "" : "hide"}`}></img>
-                    </div>
+                    <Album path={getAlbumPath()} />
                 </div>
             </div>
-
         );
     }
+
     return eevent;
 
 }

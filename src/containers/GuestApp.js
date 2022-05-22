@@ -1,19 +1,15 @@
 import React from 'react';
-import {AmplifyAuthenticator, AmplifySignIn} from "@aws-amplify/ui-react";
+import { Authenticator } from "@aws-amplify/ui-react";
 
 const GuestApp = () => {
     return (
         <div className={`AppWrapper AppWrapper_Guest'}`}>
             <div className={"AppHeader AppHeader_guest"}>
-                <img className={"logo"} src={"/logo.svg"}/>
+                <img className={"logo"} src={"/logo.svg"} />
             </div>
             <div className={'HomeContent'}>
                 <div className={"SignInFormWrapper"}>
-                    <AmplifyAuthenticator>
-
-                        <AmplifySignIn className={"SignInForm"} headerText="Personal storage of your memories"/>
-
-                    </AmplifyAuthenticator>
+                    <Authenticator loginMechanisms={['username']} />
                 </div>
                 <div className={"jumbotronWrapper"}>
                     <div className="jumbotron">

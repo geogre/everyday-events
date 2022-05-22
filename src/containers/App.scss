@@ -32,6 +32,7 @@ amplify-authenticator {
 .AppHeader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   &_guest {
     position: absolute;
     padding-left: 160px;
@@ -46,7 +47,7 @@ amplify-authenticator {
 
 .jumbotronWrapper {
   flex: 1;
-  background-image: url(/girl.svg);
+  //background-image: url(/girl.svg);
   background-repeat: no-repeat;
   background-position: top 420px left 280px;
   .jumbotron {
@@ -80,7 +81,7 @@ amplify-authenticator {
   width: 588px;
   bottom: 0px;
   left: 492px;
-  background-image: url(/picture.svg);
+  //background-image: url(/picture.svg);
   background-repeat: no-repeat;
   background-position: bottom 0px left 0px;
 }
@@ -91,7 +92,7 @@ amplify-authenticator {
   width: 297px;
   top: 0px;
   right: 33%;
-  background-image: url(/picture_top.svg);
+  //background-image: url(/picture_top.svg);
   background-repeat: no-repeat;
   background-position: top 0px left 0px;
 }
@@ -103,7 +104,7 @@ amplify-authenticator {
   width: 355px;
   right: 24px;
   top: 92px;
-  background-image: url(/picture_right.svg);
+  //background-image: url(/picture_right.svg);
   background-repeat: no-repeat;
   background-position: top 0px left 0px;
 }
@@ -117,6 +118,9 @@ div#root {
 
 .events-header-container {
    margin-bottom: 32px;
+  @include for-mobile() {
+    margin-bottom: 16px;
+  }
 }
 
 .events-header {

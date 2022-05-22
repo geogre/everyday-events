@@ -7,9 +7,8 @@ import EventsApi from "../../../api/EventsApi";
 import * as actionCreators from "../../../store/actions/actions";
 import {connect} from "react-redux";
 import {getDatesInfo} from "../../../store/selectors/dates-selector";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import {getSortedEvents} from "../../../store/selectors/events-selector";
+import DatePicker from 'react-date-picker';
 import {SHORT_DATE} from "../../../tools/formatter";
 
 class EverydayEvents extends Component
@@ -66,8 +65,8 @@ class EverydayEvents extends Component
                         <button className={"date-arrow date-arrow-right"} onClick={()=>{this.props.onSetDate(this.props.dateInfo.nextDate)}}></button>
                     </div>
                     <div className={"current-day"}>
-                        <Link className={"add-btn"} to={'/my-events/new'}></Link>
-                        <DatePicker selected={this.props.dateInfo.currentDate} onChange={date => {this.props.onSetDate(date)}} />
+                        <Link className={"add-btn"} to={'/my-events/new/' + this.props.currentDate}></Link>
+                        <DatePicker value={this.props.dateInfo.currentDate} clearIcon={null} format="y-MM-dd" onChange={date => {this.props.onSetDate(date)}} />
                     </div>
                 </div>
                 <section className="captions">

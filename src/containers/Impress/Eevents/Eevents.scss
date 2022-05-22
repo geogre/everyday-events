@@ -21,7 +21,7 @@
     width: 48px;
     height: 48px;
     background-color: #F6F6F6;
-    background-image: url(/date-arrow.svg);
+    background-image: url('../../../../public/date-arrow.svg');
     background-position: center center;
     background-repeat: no-repeat;
     border: none;
@@ -31,10 +31,11 @@
     display: block;
     width: 48px;
     height: 48px;
-    background-image: url(/plus.svg);
+    background-image: url('../../../../public/plus.svg');
     background-position: center center;
     background-repeat: no-repeat;
     border: none;
+    margin-right: 8px;
 }
 
 .date-arrow-left {
@@ -43,6 +44,10 @@
 
 .current-week, .current-day {
     display: flex;
+    @include for-mobile() {
+        justify-content: flex-end;
+        margin-bottom: 16px;
+    }
 }
 
 .week-dates {

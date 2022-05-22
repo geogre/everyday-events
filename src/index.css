@@ -17,7 +17,21 @@ code {
   display: flex;
 }
 
-  :root{
+:root{
   --amplify-primary-color: black;
   --amplify-font-family: 'Raleway', 'Amazon Ember', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+}
+
+.App .react-date-picker__inputGroup {
+  padding-left: 8px;
+}
+
+.App .react-date-picker__button {
+  padding-right: 8px;
+}
+
+.App .react-date-picker__wrapper {
+  border-radius: 2px;
+  border-style: inset;
+  border-color: rgb(118, 118, 118) rgb(133, 133, 133);
 }

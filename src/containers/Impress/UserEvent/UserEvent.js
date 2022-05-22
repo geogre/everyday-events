@@ -4,7 +4,6 @@ import './UserEvent.css';
 import EventsApi from "../../../api/EventsApi";
 import * as actionCreators from "../../../store/actions/actions";
 import {connect} from "react-redux";
-import {S3Album} from "aws-amplify-react";
 
 class UserEvent extends Component {
 
@@ -32,7 +31,6 @@ class UserEvent extends Component {
                         <span className="event-date">{this.props.currentEvent.date}</span>
                         <h1 className="event-title">{this.props.currentEvent.title}</h1>
                         <p className="event-description">{this.props.currentEvent.description}</p>
-                        <S3Album path={this.getAlbumPath()} />
                     </div>
                 </div>
             );
