@@ -49,7 +49,7 @@ function UpdateEvent(props) {
                 <div className={"events-header-container"}>
                     <h2 className={"events-header"}>Update Impression</h2>
                 </div>
-                <EventForm {...currentEvent} onSubmit={updateDataHandler} onCancel={cancelHandler} />
+                <EventForm {...currentEvent} onSubmit={updateDataHandler} onCancel={cancelHandler} submitBtnCaption={"Update"} />
             </div>
         );
     }
