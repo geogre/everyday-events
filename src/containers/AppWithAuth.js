@@ -3,7 +3,6 @@ import { AmplifyProvider } from '@aws-amplify/ui-react';
 import { AuthContext } from "../context/AuthContextProvider";
 import App from "./App";
 import GuestApp from "./GuestApp";
-import '../eeTheme.scss';
 
 const AppWithAuth = (props) => {
 

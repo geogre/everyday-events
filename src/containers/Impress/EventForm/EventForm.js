@@ -39,7 +39,7 @@ function EventForm(props) {
 					<label className="Label">Description</label>
 					<textarea className="InputElement TextArea" name="description" type="text"  value={description} onChange={e => setDescription(e.target.value)}></textarea></div>
 				<div className="buttons-block">
-					<button type="submit" className="button button-action">Add</button>
+					<button type="submit" className="button button-action">{props.submitBtnCaption}</button>
 					<button type="button" className="button" onClick={props.onCancel}>Cancel</button>
 				</div>
 			</div>

@@ -16,14 +16,14 @@ const AuthContextProvider = (props) => {
             .then(user => {
                 console.log(user);
                 if (user) {
-                    setState({isLoggedIn: true, user: user});
+                    setState({isLoggedIn: true, user: user, isLoading: false});
                 } else {
-                    setState({isLoggedIn: false, user: null});
+                    setState({isLoggedIn: false, user: null, isLoading: false});
                 }
             })
             .catch(err => {
                 console.log('something is wrong');
-                setState(defaultState);
+                setState({isLoggedIn: false, user: null, isLoading: false});
             });
 
         Hub.listen('auth', (data) => {

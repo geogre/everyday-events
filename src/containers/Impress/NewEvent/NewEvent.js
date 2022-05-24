@@ -34,7 +34,7 @@ function NewEvent (props) {
             <div className={"events-header-container"}>
                 <h2 className={"events-header"}>Add Event</h2>
             </div>
-            <EventForm date={params.currentDate} onSubmit={addEventHandler} onCancel={cancelHandler} />
+            <EventForm date={params.currentDate} onSubmit={addEventHandler} onCancel={cancelHandler} submitBtnCaption={"Add"} />
         </div>
     );
 
