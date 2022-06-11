@@ -10,6 +10,8 @@ import DateDecorated from "../../../components/DateDecorated/DateDecorated";
 import moment from 'moment';
 import {useNavigate} from "react-router";
 import Album from "../../../components/Album/Album";
+import {Image} from "@aws-amplify/ui-react";
+import YouTubeWidget from "../../../components/YouTube/YouTubeWidget";
 
 function FullEvent(props) {
 
@@ -62,11 +64,16 @@ function FullEvent(props) {
                             <img src={"/back.png"} onClick={cancelHandler}></img>
                         </div>
                     </div>
-                    <p className="event-description">{props.currentEvent.description}</p>
+                    {props.currentEvent.description && <p className="event-description">{props.currentEvent.description}</p>}
                 </div>
                 <div className={"album-block"} >
                     <Album path={getAlbumPath()} />
                 </div>
+                {props.currentEvent.video && <div>
+                    {props.currentEvent.video.split(',').map(video => {
+                        return <YouTubeWidget embedId={video} />
+                    })}
+                </div>}
             </div>
         );
     }

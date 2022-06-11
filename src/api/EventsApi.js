@@ -1,6 +1,7 @@
 import {API, Auth} from "aws-amplify";
 import config from './config';
 import {FULL_DATE} from "../tools/formatter";
+import EventApiTranformer from '../tools/EventApiTranformer';
 
 // TODO Why this doesn't work?
 // async function requestData() {
@@ -51,12 +52,11 @@ const EventsApi = {
     async updateEvent(currentEvent)
     {
         let path = config.basePath + currentEvent.id;
-        let fixedEvent = {...currentEvent, description: currentEvent.description.replace(/(?:\r\n|\r|\n)/g, '\\n')};
+        let apiEvent = EventApiTranformer.toApi(currentEvent);
         let myInit = { // OPTIONAL
             headers: { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` },
             response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-            body: fixedEvent,
-
+            body: apiEvent,
         };
         return API.put(config.apiName, path, myInit).then(response => response).catch(error => {
             console.log(error.response)
@@ -67,11 +67,11 @@ const EventsApi = {
 
     async addEvent(newEvent)
     {
-        let fixedEvent = {...newEvent, description: newEvent.description.replace(/(?:\r\n|\r|\n)/g, '\\n')};
+        let apiEvent = EventApiTranformer.toApi(newEvent);
         let myInit = { // OPTIONAL
             headers: { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` },
             response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-            body: fixedEvent,
+            body: apiEvent,
 
         };
         return API.post(config.apiName, config.basePath, myInit).then(response => response).catch(error => {
