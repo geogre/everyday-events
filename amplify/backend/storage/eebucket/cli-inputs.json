@@ -1,0 +1,15 @@
+{
+  "resourceName": "eebucket",
+  "bucketName": "ee-aws-bucket",
+  "policyUUID": "cf0408a6",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Triggerfea9539c"
+}

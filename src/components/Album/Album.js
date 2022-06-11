@@ -2,6 +2,7 @@ import EventsStorage from "../../storage/EventsStorage";
 import { Storage } from 'aws-amplify';
 import {useEffect, useState} from "react";
 import './Album.scss';
+import {Image} from "@aws-amplify/ui-react";
 
 const Album = (props) => {
 	const [items, setItems] = useState([]);
@@ -81,7 +82,8 @@ const Album = (props) => {
 
 	return (<div className="album">
 		{items.map(item => {
-			return <img key={item.key} data-key={item.key} src={item.path} onClick={processSelect} className={selectedItems.includes(item.key) ? 'selected' : ''} alt='' />
+			return <Image key={item.key} data-key={item.key} src={item.path} onClick={processSelect} className={selectedItems.includes(item.key) ? 'selected' : ''} alt='' />
+			//return <img key={item.key} data-key={item.key} src={item.path} onClick={processSelect} className={selectedItems.includes(item.key) ? 'selected' : ''} alt='' />
 		})}
 		<div className={"buttons-block"}>
 			<img src={"/delete.png"} onClick={deleteImagesHandler} className={`${selectedItems.length > 0 ? "" : "hide"}`}></img>
