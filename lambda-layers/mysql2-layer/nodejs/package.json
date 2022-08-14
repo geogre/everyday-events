@@ -1,0 +1,8 @@
+{
+  "name": "mysql2-layer",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "mysql2": "^2.3.3"
+  }
+}

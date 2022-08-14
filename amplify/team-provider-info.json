@@ -14,6 +14,20 @@
     "categories": {
       "auth": {
         "everydayevents47b8cd8a": {}
+      },
+      "function": {
+        "S3Triggerfea9539c": {
+          "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
+          "s3Key": "amplify-builds/S3Triggerfea9539c-4a734838444b36697577-build.zip"
+        },
+        "calculateeeimages": {
+          "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
+          "s3Key": "amplify-builds/calculateeeimages-712f345a4f4945564434-build.zip"
+        },
+        "fillevents": {
+          "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
+          "s3Key": "amplify-builds/fillevents-63464e5256726e5a4f45-build.zip"
+        }
       }
     }
   },

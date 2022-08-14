@@ -2,10 +2,15 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "{\"createdOn\":\"Linux\",\"createdBy\":\"Amplify\",\"createdWith\":\"8.5.1\",\"stackType\":\"function-Lambda\",\"metadata\":{}}",
   "Parameters": {
-    "env": {
-      "Type": "String"
+    "CloudWatchRule": {
+      "Type": "String",
+      "Default": "NONE",
+      "Description": " Schedule Expression"
     },
     "deploymentBucketName": {
+      "Type": "String"
+    },
+    "env": {
       "Type": "String"
     },
     "s3Key": {
@@ -30,16 +35,24 @@
         "aws:asset:property": "Code"
       },
       "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "deploymentBucketName"
+          },
+          "S3Key": {
+            "Ref": "s3Key"
+          }
+        },
         "Handler": "index.handler",
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "S3Triggerfea9539c",
+            "calculateeeimages",
             {
               "Fn::Join": [
                 "",
                 [
-                  "S3Triggerfea9539c",
+                  "calculateeeimages",
                   "-",
                   {
                     "Ref": "env"
@@ -53,6 +66,9 @@
           "Variables": {
             "ENV": {
               "Ref": "env"
+            },
+            "REGION": {
+              "Ref": "AWS::Region"
             }
           }
         },
@@ -63,15 +79,8 @@
           ]
         },
         "Runtime": "nodejs14.x",
-        "Timeout": 25,
-        "Code": {
-          "S3Bucket": {
-            "Ref": "deploymentBucketName"
-          },
-          "S3Key": {
-            "Ref": "s3Key"
-          }
-        }
+        "Layers": [],
+        "Timeout": 25
       }
     },
     "LambdaExecutionRole": {
@@ -80,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "S3Triggerfea9539cLambdaRolefea9539c",
+            "everydayeventsLambdaRole6ea856a9",
             {
               "Fn::Join": [
                 "",
                 [
-                  "S3Triggerfea9539cLambdaRolefea9539c",
+                  "everydayeventsLambdaRole6ea856a9",
                   "-",
                   {
                     "Ref": "env"
@@ -154,8 +163,37 @@
             },
             {
               "Effect": "Allow",
+              "Action": [
+                "dynamodb:UpdateItem"
+              ],
+              "Resource": "arn:aws:dynamodb:*:*:table/*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": "s3:ListBucket",
+              "Resource": "arn:aws:s3:::ee-aws-bucket173627-dev"
+            },
+            {
+              "Effect": "Allow",
               "Action": "secretsmanager:GetSecretValue",
               "Resource": "arn:aws:secretsmanager:us-east-1:995789409065:secret:prod/eevents/mysql-zCGLCc"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:CreateNetworkInterface",
+                "ec2:DeleteNetworkInterface",
+                "ec2:DescribeInstances",
+                "ec2:AttachNetworkInterface"
+              ],
+              "Resource": "*"
+            },
+            {
+              "Sid": "Stmt1659184158761",
+              "Action": "rds-data:*",
+              "Effect": "Allow",
+              "Resource": "arn:aws:rds:us-east-1:995789409065:db:everydayeventsdb"
             }
           ]
         }
