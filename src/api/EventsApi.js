@@ -20,7 +20,7 @@ const EventsApi = {
             response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
             queryStringParameters: {from: startDate.format(FULL_DATE), to: endDate.format(FULL_DATE)}
         }).then(response => response).catch(error => {
-            //TODO catch
+            console.log('Error', error);
         });
     },
 

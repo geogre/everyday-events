@@ -8,10 +8,11 @@ function EventForm(props) {
 	const [description, setDescription] = useState(props.description ?? '');
 	const [video, setVideo] = useState(props.video ?? '');
 	const [date, setDate] = useState(props.date ?? '');
+	const [isPrivate, setIsPrivate] = useState(props.isPrivate === 'true');
 
 	const onSubmitHander = (e) => {
 		e.preventDefault();
-		props.onSubmit({id, title, description, date, video});
+		props.onSubmit({id, title, description, date, video, isPrivate});
 	};
 
 	const dateChangeHandler = (currentDate) => {
@@ -42,6 +43,9 @@ function EventForm(props) {
 				<div className="form-group Input ">
 					<label className="Label">Video</label>
 					<textarea className="InputElement TextArea" name="video" type="text"  value={video} onChange={e => setVideo(e.target.value)}></textarea></div>
+				<div className="form-group Input ">
+					<input name="isprivate" type="checkbox" checked={isPrivate} onClick={e => setIsPrivate(e.target.checked)} />&nbsp;<label className="Label">Is Private</label>
+				</div>
 				<div className="buttons-block">
 					<button type="submit" className="button button-action">{props.submitBtnCaption}</button>
 					<button type="button" className="button" onClick={props.onCancel}>Cancel</button>

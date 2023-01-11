@@ -1,0 +1,65 @@
+@import "../../../styles/mixins";
+
+.events, .captions {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: stretch;
+}
+
+.date-info {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    margin: 1em 0;
+    @include for-mobile() {
+        flex-direction: column-reverse;
+    }
+}
+
+.date-arrow {
+    width: 48px;
+    height: 48px;
+    background-color: #F6F6F6;
+    background-image: url('../../../../public/date-arrow.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.add-btn {
+    display: block;
+    width: 48px;
+    height: 48px;
+    background-image: url('../../../../public/plus.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+    margin-right: 8px;
+}
+
+.date-arrow-left {
+    transform: scaleX(-1);
+}
+
+.current-week, .current-day {
+    display: flex;
+    @include for-mobile() {
+        justify-content: flex-end;
+        margin-bottom: 16px;
+    }
+}
+
+.week-dates {
+    margin: 0 10px;
+    text-align: center;
+}
+
+.react-datepicker__input-container {
+    height: 100%;
+    input {
+        text-align: center;
+        margin: 0 10px;
+        height: 100%;
+    }
+}

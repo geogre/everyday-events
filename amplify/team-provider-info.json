@@ -27,7 +27,17 @@
         "fillevents": {
           "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
           "s3Key": "amplify-builds/fillevents-63464e5256726e5a4f45-build.zip"
+        },
+        "getyearsforuser": {
+          "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
+          "s3Key": "amplify-builds/getyearsforuser-48466453372f7667626e-build.zip"
         }
+      },
+      "storage": {
+        "eebucket": {}
+      },
+      "api": {
+        "allevents": {}
       }
     }
   },
@@ -51,7 +61,10 @@
         "S3Triggerfea9539c": {
           "deploymentBucketName": "amplify-everydayevents-test-221554-deployment",
           "s3Key": "amplify-builds/S3Triggerfea9539c-49435445497970794f66-build.zip"
-        }
+        },
+        "calculateeeimages": {},
+        "fillevents": {},
+        "getyearsforuser": {}
       }
     }
   }

@@ -10,7 +10,6 @@ import DateDecorated from "../../../components/DateDecorated/DateDecorated";
 import moment from 'moment';
 import {useNavigate} from "react-router";
 import Album from "../../../components/Album/Album";
-import {Image} from "@aws-amplify/ui-react";
 import YouTubeWidget from "../../../components/YouTube/YouTubeWidget";
 
 function FullEvent(props) {

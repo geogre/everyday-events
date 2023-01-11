@@ -5,6 +5,10 @@ import Eevents from './Eevents/Eevents';
 import NewEvent from "./NewEvent/NewEvent";
 import FullEvent from "./FullEvent/FullEvent";
 import UpdateEvent from "./UpdateEvent/UpdateEvent";
+import EventsByYear from "./EventsByYear/EventsByYear";
+import EventsByMonth from "./EventsByMonth/EventsByMonth";
+import EventsByDay from "./EventsByDay/EventsByDay";
+import EventsForDay from "./EventsForDay/EventsForDay";
 
 const Impress = () =>  {
 
@@ -15,6 +19,10 @@ const Impress = () =>  {
             <Route path="/my-events/new/:currentDate" element={<NewEvent />} />
             <Route path="/my-events/update/:eventId" element={<UpdateEvent />} />
             <Route path="/my-events/:eventId" strict element={<FullEvent />} />
+            <Route path="/:userId" strict element={<EventsByYear />} />
+            <Route path="/:userId/:year" strict element={<EventsByMonth />} />
+            <Route path="/:userId/:year/:month" strict element={<EventsByDay />} />
+            <Route path="/:userId/:year/:month/:day" strict element={<EventsForDay />} />
         </Routes>);
 
     return (
