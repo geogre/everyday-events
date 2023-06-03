@@ -11,6 +11,7 @@ import moment from 'moment';
 import {useNavigate} from "react-router";
 import Album from "../../../components/Album/Album";
 import YouTubeWidget from "../../../components/YouTube/YouTubeWidget";
+import {getAlbumPath} from "../../../tools/formatter";
 
 function FullEvent(props) {
 
@@ -35,10 +36,6 @@ function FullEvent(props) {
         }).catch(error => {
             //TODO catch
         })
-    }
-
-    const getAlbumPath = () => {
-        return props.currentEvent.userId + '/' + props.currentEvent.date + '/' + props.currentEvent.id;
     }
 
     const cancelHandler = () => {
@@ -66,7 +63,7 @@ function FullEvent(props) {
                     {props.currentEvent.description && <p className="event-description">{props.currentEvent.description}</p>}
                 </div>
                 <div className={"album-block"} >
-                    <Album path={getAlbumPath()} />
+                    <Album path={getAlbumPath(props.currentEvent)} />
                 </div>
                 {props.currentEvent.video && <div>
                     {props.currentEvent.video.split(',').map(video => {

@@ -32,7 +32,7 @@ const getConnection = async () => {
 }
 
 const getLastDayOfMonth = (year, month) => {
-  return 31;
+  return new Date(year, month, 0).getDate();
 }
 
 const express = require('express')

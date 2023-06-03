@@ -1,40 +1,39 @@
 {
-  "auth": {
-    "everydayevents47b8cd8a": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
-  "storage": {
-    "eebucket": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation",
+  "api": {
+    "allevents": {
       "dependsOn": [
         {
-          "category": "function",
-          "resourceName": "S3Triggerfea9539c",
           "attributes": [
             "Name",
-            "Arn",
-            "LambdaExecutionRole"
-          ]
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "getyearsforuser"
         }
-      ]
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "everydayevents47b8cd8a": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
     }
   },
   "function": {
     "S3Triggerfea9539c": {
-      "service": "Lambda",
+      "build": true,
       "providerPlugin": "awscloudformation",
-      "build": true
+      "service": "Lambda"
     },
     "calculateeeimages": {
       "build": true,
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
+      "service": "Lambda"
     },
     "fillevents": {
       "build": true,
@@ -43,25 +42,26 @@
     },
     "getyearsforuser": {
       "build": true,
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
+      "service": "Lambda"
     }
   },
-  "api": {
-    "allevents": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
+  "storage": {
+    "eebucket": {
       "dependsOn": [
         {
-          "category": "function",
-          "resourceName": "getyearsforuser",
           "attributes": [
             "Name",
-            "Arn"
-          ]
+            "Arn",
+            "LambdaExecutionRole"
+          ],
+          "category": "function",
+          "resourceName": "S3Triggerfea9539c"
         }
-      ]
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

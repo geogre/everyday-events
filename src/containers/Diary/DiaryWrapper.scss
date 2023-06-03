@@ -1,0 +1,51 @@
+.DiaryContent {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.DiaryItemWrapper:hover {
+  text-decoration: none;
+}
+
+.DiaryItemWrapper.Empty {
+  pointer-events: none;
+  cursor: default;
+}
+
+.DiaryItem {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.DiaryItem .EventsCount, .DiaryItem .ImagesCount {
+  flex: 1 0 50%;
+  padding: 0 10px;
+}
+
+.DiaryItem .EventsCount {
+  text-align: right;
+}
+
+.DiaryItem .Header {
+  flex: 0 1 100%;
+  min-height: 64px;
+  min-width: 128px;
+  margin-top: 40px;
+}
+
+.DiaryItem .Header, .DiaryHeader {
+  text-align: center;
+  vertical-align: center;
+  font-size: 48px;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
+}
+
+.DiaryHeader {
+  color: #fff;
+  letter-spacing: 15px;
+  background: linear-gradient(to right, white 0%, #9fcdff 5%, #9fcdff 95%, white);
+  text-shadow: 3px 3px 20px darkblue,
+  -2px 1px 30px darkblue;
+}

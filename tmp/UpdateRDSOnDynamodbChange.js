@@ -32,11 +32,19 @@ exports.handler = async (event, context) => {
 	for (const record of event.Records) {
 		if (record.eventName === 'INSERT') {
 			const item = record.dynamodb.NewImage;
-			await connection.execute("INSERT INTO everydayeventsdb.eevents (`userId`, `eventId`, `title`, `eventDate`) VALUES (?, ?, ?, ?)", [item.userId.S, item.eventId.S, item.title.S, item.eventDate.S]);
+			const isPrivate = item.isPrivate.BOOL;
+			if (!isPrivate) {
+				await connection.execute("INSERT INTO everydayeventsdb.eevents (`userId`, `eventId`, `title`, `eventDate`) VALUES (?, ?, ?, ?)", [item.userId.S, item.eventId.S, item.title.S, item.eventDate.S]);
+			}
 		} else if (record.eventName === 'MODIFY') {
 			const item = record.dynamodb.NewImage;
 			const keys = record.dynamodb.Keys;
-			await connection.execute("UPDATE everydayeventsdb.eevents SET title = ?, eventDate = ? WHERE userId = ? AND eventId = ?", [item.title.S, item.eventDate.S, keys.userId.S, keys.eventId.S]);
+			const isPrivate = item.isPrivate.BOOL;
+			if (isPrivate) {
+				await connection.execute("DELETE FROM everydayeventsdb.eevents WHERE userId = ? AND eventId = ?", [keys.userId.S, keys.eventId.S]);
+			} else {
+				await connection.execute("INSERT INTO everydayeventsdb.eevents (`userId`, `eventId`, `title`, `eventDate`) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE `title` = ?, `eventDate` = ?", [item.userId.S, item.eventId.S, item.title.S, item.eventDate.S, item.title.S, item.eventDate.S]);
+			}
 		} else if (record.eventName === 'REMOVE') {
 			const keys = record.dynamodb.Keys;
 			await connection.execute("DELETE FROM everydayeventsdb.eevents WHERE userId = ? AND eventId = ?", [keys.userId.S, keys.eventId.S]);

@@ -30,7 +30,7 @@
         },
         "getyearsforuser": {
           "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
-          "s3Key": "amplify-builds/getyearsforuser-48466453372f7667626e-build.zip"
+          "s3Key": "amplify-builds/getyearsforuser-7a2f554a737a69696466-build.zip"
         }
       },
       "storage": {

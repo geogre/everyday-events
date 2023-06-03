@@ -1,0 +1,21 @@
+.DiaryContainer.EventsByDay {
+  .DiaryContent {
+    flex-flow: column;
+    .DiaryItem {
+      justify-content: space-between;
+      .Header {
+        flex: initial;
+        margin-top: 0;
+        min-height: 32px;
+      }
+      .ImagesCount {
+        flex: initial;
+        display: flex;
+        p {
+          vertical-align: center;
+          margin: auto;
+        }
+      }
+    }
+  }
+}

@@ -17,11 +17,6 @@ class UserEvent extends Component {
         }
     }
 
-    getAlbumPath = () => {
-        //console.log(this.props.currentEvent.userId + '/' + this.props.currentEvent.date + '/' + this.props.currentEvent.id);
-        return this.props.currentEvent.userId + '/' + this.props.currentEvent.date + '/' + this.props.currentEvent.id;
-    }
-
     render () {
         let eevent = <p style={{ textAlign: 'center' }}>Loading...</p>;
         if ( this.props.currentEvent ) {
