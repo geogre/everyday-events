@@ -54,6 +54,40 @@
       "service": "Lambda"
     }
   },
+  "parameters": {
+    "AMPLIFY_function_S3Triggerade21a8c_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerade21a8c"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Triggerade21a8c_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggerade21a8c"
+        }
+      ]
+    },
+    "AMPLIFY_function_getyearsforuser_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getyearsforuser"
+        }
+      ]
+    },
+    "AMPLIFY_function_getyearsforuser_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getyearsforuser"
+        }
+      ]
+    }
+  },
   "storage": {
     "eventsbucket": {
       "dependsOn": [
