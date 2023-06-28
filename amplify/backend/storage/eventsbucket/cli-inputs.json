@@ -1,0 +1,16 @@
+{
+  "resourceName": "eventsbucket",
+  "policyUUID": "c390eac9",
+  "bucketName": "everydayeventseee0db94b45c41cea27344473df51136",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Triggerade21a8c",
+  "groupAccess": {}
+}

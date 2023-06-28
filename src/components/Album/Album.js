@@ -76,16 +76,20 @@ const Album = (props) => {
 	};
 
 	useEffect(() => {
+		setItems([]);
 		if (props.path) {
 			getItems(props.path);
+		}
+		return () => {
+			setItems([]);
 		}
 	}, [EventsStorage.listFiles, props.path]);
 
 	return (<div className="album">
-		{items.map(item => {
+		{items.length > 0 ? items.map(item => {
 			return <Image key={item.key} data-key={item.key} src={config.thumbnailLambdaUrl + '?key=/public/' + item.key} onClick={processSelect} className={selectedItems.includes(item.key) ? 'selected' : ''} alt='' />
 			//return <img key={item.key} data-key={item.key} src={item.path} onClick={processSelect} className={selectedItems.includes(item.key) ? 'selected' : ''} alt='' />
-		})}
+		}) : ''}
 		<div className={"buttons-block"}>
 			<img src={"/delete.png"} onClick={deleteImagesHandler} className={`${selectedItems.length > 0 ? "" : "hide"}`}></img>
 			<form className={`${selectedItems.length > 0 ? "hide" : ""}`} name="uploadForm" encType="multipart/form-data">

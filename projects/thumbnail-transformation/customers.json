@@ -1,0 +1,18 @@
+[
+  {
+    "customerId": 1,
+    "firstName": "Cassandra",
+    "lastName": "Farrah",
+    "email": "caerere@telegraph.co.uk",
+    "orderType": "PURCHASE",
+    "orderAmount": 96.56
+  },
+  {
+    "customerId": 2,
+    "firstName": "Yurii",
+    "lastName": "Vakulik",
+    "email": "yuriv.2kgroup@telegraph.co.uk",
+    "orderType": "PURCHASE",
+    "orderAmount": 12.23
+  }
+]

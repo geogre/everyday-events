@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "paths": {
+    "/all": {
+      "name": "/all",
+      "lambdaFunction": "getyearsforuser",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/month": {
+      "name": "/month",
+      "lambdaFunction": "getyearsforuser",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/day": {
+      "name": "/day",
+      "lambdaFunction": "getyearsforuser",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/year": {
+      "name": "/year",
+      "lambdaFunction": "getyearsforuser",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

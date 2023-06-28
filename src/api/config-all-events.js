@@ -1,4 +1,4 @@
 export default {
-    apiName: 'allevents',
+    apiName: 'eventsapi',
     basePath: '/'
 }

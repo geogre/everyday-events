@@ -69,7 +69,7 @@ app.get('/all', async function(req, res) {
   const connection = await getConnection();
   const selectString = `SELECT YEAR(ee.eventDate) AS eventsYear, COUNT(DISTINCT ee.eventId) AS eventsCount, COUNT(ei.eventId) AS imagesCount
                         FROM everydayeventsdb.eevents ee
-                        JOIN everydayeventsdb.eimages ei ON ei.eventId = ee.eventId
+                        LEFT JOIN everydayeventsdb.eimages ei ON ei.eventId = ee.eventId
                         WHERE userId = ? GROUP BY eventsYear`;
   const params = [req.query.userId];
   const [rows, fields] = await connection.execute(selectString, params);
@@ -81,7 +81,7 @@ app.get('/year', async function(req, res) {
   const year = req.query.year;
   const selectString = `SELECT MONTH(ee.eventDate) AS eventsMonth, COUNT(DISTINCT ee.eventId) AS eventsCount, COUNT(ei.eventId) AS imagesCount
                         FROM everydayeventsdb.eevents ee
-                        JOIN everydayeventsdb.eimages ei ON ei.eventId = ee.eventId
+                        LEFT JOIN everydayeventsdb.eimages ei ON ei.eventId = ee.eventId
                         WHERE userId = ? AND ee.eventDate >= '${year}-01-01' AND ee.eventDate <= '${year}-12-31' GROUP BY eventsMonth`;
   const params = [req.query.userId];
   const [rows, fields] = await connection.execute(selectString, params);
@@ -95,7 +95,7 @@ app.get('/month', async function(req, res) {
   const lastDayOfMonth = getLastDayOfMonth(year, month);
   const selectString = `SELECT DAY(ee.eventDate) AS eventsDay, COUNT(DISTINCT ee.eventId) AS eventsCount, COUNT(ei.eventId) AS imagesCount
                         FROM everydayeventsdb.eevents ee
-                        JOIN everydayeventsdb.eimages ei ON ei.eventId = ee.eventId
+                        LEFT JOIN everydayeventsdb.eimages ei ON ei.eventId = ee.eventId
                         WHERE userId = ? AND ee.eventDate >= '${year}-${month}-01' AND ee.eventDate <= '${year}-${month}-${lastDayOfMonth}' GROUP BY eventsDay`;
   const params = [req.query.userId];
   const [rows, fields] = await connection.execute(selectString, params);
@@ -109,7 +109,7 @@ app.get('/day', async function(req, res) {
   const day = req.query.day;
   const selectString = `SELECT ee.title AS eventName, ee.eventId as eventPath, COUNT(ei.eventId) AS imagesCount
                         FROM everydayeventsdb.eevents ee
-                        JOIN everydayeventsdb.eimages ei ON ei.eventId = ee.eventId
+                        LEFT JOIN everydayeventsdb.eimages ei ON ei.eventId = ee.eventId
                         WHERE userId = ? AND ee.eventDate = '${year}-${month}-${day}' GROUP BY eventName, eventPath`;
   const params = [req.query.userId];
   const [rows, fields] = await connection.execute(selectString, params);

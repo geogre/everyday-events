@@ -1,6 +1,6 @@
 {
   "api": {
-    "allevents": {
+    "eventsapi": {
       "dependsOn": [
         {
           "attributes": [
@@ -16,39 +16,46 @@
     }
   },
   "auth": {
-    "everydayevents47b8cd8a": {
+    "everydayevents06741143": {
       "customAuth": false,
       "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
   },
   "function": {
-    "S3Triggerfea9539c": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "calculateeeimages": {
+    "S3Triggerade21a8c": {
       "build": true,
       "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "fillevents": {
-      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
     "getyearsforuser": {
       "build": true,
-      "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "storage": {
-    "eebucket": {
+    "eventsbucket": {
       "dependsOn": [
         {
           "attributes": [
@@ -57,7 +64,7 @@
             "LambdaExecutionRole"
           ],
           "category": "function",
-          "resourceName": "S3Triggerfea9539c"
+          "resourceName": "S3Triggerade21a8c"
         }
       ],
       "providerPlugin": "awscloudformation",

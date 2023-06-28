@@ -1,70 +1,35 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-everydayevents-dev-173627-authRole",
-      "UnauthRoleArn": "arn:aws:iam::995789409065:role/amplify-everydayevents-dev-173627-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::995789409065:role/amplify-everydayevents-dev-173627-authRole",
+      "AuthRoleName": "amplify-everydayevents-dev-181234-authRole",
+      "UnauthRoleArn": "arn:aws:iam::995789409065:role/amplify-everydayevents-dev-181234-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::995789409065:role/amplify-everydayevents-dev-181234-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
-      "UnauthRoleName": "amplify-everydayevents-dev-173627-unauthRole",
-      "StackName": "amplify-everydayevents-dev-173627",
-      "StackId": "arn:aws:cloudformation:us-east-1:995789409065:stack/amplify-everydayevents-dev-173627/1aa95ff0-b171-11ea-8447-12328959da6d",
-      "AmplifyAppId": "dqrhv8u5s7e82"
+      "DeploymentBucketName": "amplify-everydayevents-dev-181234-deployment",
+      "UnauthRoleName": "amplify-everydayevents-dev-181234-unauthRole",
+      "StackName": "amplify-everydayevents-dev-181234",
+      "StackId": "arn:aws:cloudformation:us-east-1:995789409065:stack/amplify-everydayevents-dev-181234/12e57cf0-0221-11ee-8df6-0a573f309c6f",
+      "AmplifyAppId": "d2t9399masopce"
     },
     "categories": {
       "auth": {
-        "everydayevents47b8cd8a": {}
+        "everydayevents06741143": {}
       },
       "function": {
-        "S3Triggerfea9539c": {
-          "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
-          "s3Key": "amplify-builds/S3Triggerfea9539c-4a734838444b36697577-build.zip"
-        },
-        "calculateeeimages": {
-          "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
-          "s3Key": "amplify-builds/calculateeeimages-712f345a4f4945564434-build.zip"
-        },
-        "fillevents": {
-          "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
-          "s3Key": "amplify-builds/fillevents-63464e5256726e5a4f45-build.zip"
-        },
         "getyearsforuser": {
-          "deploymentBucketName": "amplify-everydayevents-dev-173627-deployment",
-          "s3Key": "amplify-builds/getyearsforuser-7a2f554a737a69696466-build.zip"
+          "deploymentBucketName": "amplify-everydayevents-dev-181234-deployment",
+          "s3Key": "amplify-builds/getyearsforuser-6c303150756f542f7048-build.zip"
+        },
+        "S3Triggerade21a8c": {
+          "deploymentBucketName": "amplify-everydayevents-dev-181234-deployment",
+          "s3Key": "amplify-builds/S3Triggerade21a8c-613151642b4746715975-build.zip"
         }
       },
       "storage": {
-        "eebucket": {}
+        "eventsbucket": {}
       },
       "api": {
-        "allevents": {}
-      }
-    }
-  },
-  "test": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-everydayevents-test-221554-authRole",
-      "UnauthRoleArn": "arn:aws:iam::995789409065:role/amplify-everydayevents-test-221554-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::995789409065:role/amplify-everydayevents-test-221554-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-everydayevents-test-221554-deployment",
-      "UnauthRoleName": "amplify-everydayevents-test-221554-unauthRole",
-      "StackName": "amplify-everydayevents-test-221554",
-      "StackId": "arn:aws:cloudformation:us-east-1:995789409065:stack/amplify-everydayevents-test-221554/6d27ff90-e75f-11ec-9398-12527d768c55",
-      "AmplifyAppId": "dqrhv8u5s7e82"
-    },
-    "categories": {
-      "auth": {
-        "everydayevents47b8cd8a": {}
-      },
-      "function": {
-        "S3Triggerfea9539c": {
-          "deploymentBucketName": "amplify-everydayevents-test-221554-deployment",
-          "s3Key": "amplify-builds/S3Triggerfea9539c-49435445497970794f66-build.zip"
-        },
-        "calculateeeimages": {},
-        "fillevents": {},
-        "getyearsforuser": {}
+        "eventsapi": {}
       }
     }
   }
