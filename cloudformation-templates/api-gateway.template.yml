@@ -1,0 +1,593 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    3820a5de-bd0b-406d-b665-da75020a1ee0:
+      size:
+        width: 310
+        height: 340
+      position:
+        x: 220
+        'y': 160
+      z: 0
+      embeds: []
+    3628f872-8324-4f3c-b533-1815f404f61b:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 290
+        'y': 240
+      z: 2
+      embeds: []
+      isassociatedwith:
+        - 9adc6ea8-5dc1-427f-a8e3-56bb5c7dc86a
+      iscontainedinside:
+        - 3820a5de-bd0b-406d-b665-da75020a1ee0
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+        - b3b180df-2688-4f36-acd1-34b6ac34de7d
+    9adc6ea8-5dc1-427f-a8e3-56bb5c7dc86a:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 90
+        'y': 230
+      z: 0
+      embeds: []
+    1ec856eb-29ca-4c37-8333-0a06980d9466:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 90
+        'y': 380
+      z: 0
+      embeds: []
+Resources:
+  EERestApi:
+    Type: 'AWS::ApiGateway::RestApi'
+    Properties:
+      Name: EERestAPI
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3820a5de-bd0b-406d-b665-da75020a1ee0
+  ResRootGet:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      HttpMethod: GET
+      RestApiId: !Ref EERestApi
+      AuthorizerId: !Ref EEAuthorizer
+      AuthorizationType: COGNITO_USER_POOLS
+      ResourceId: !GetAtt 
+        - EERestApi
+        - RootResourceId
+      RequestValidatorId: !Ref EERequestValidator
+      RequestParameters:
+        method.request.querystring.from: true
+        method.request.querystring.to: true
+      Integration:
+        Type: AWS
+        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/Query'
+        IntegrationHttpMethod: POST
+        RequestParameters:
+          integration.request.querystring.from: method.request.querystring.from
+          integration.request.querystring.to: method.request.querystring.to
+        Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
+        RequestTemplates:
+          application/json: |-
+            {
+                "TableName": "impressions",
+                "IndexName": "userId-date-index",
+                "KeyConditionExpression": "userId = :v1 AND eventDate BETWEEN :v2a AND :v2b",
+                "ExpressionAttributeValues": {
+                    ":v1": {"S": "$context.authorizer.claims['cognito:username']"},
+                    ":v2a": {"S": "$input.params('from')"},
+                    ":v2b": {"S": "$input.params('to')"}
+                }
+            }
+        PassthroughBehavior: WHEN_NO_TEMPLATES
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: |-
+                #set($inputRoot = $input.path('$'))
+                {
+                  "events": [
+                    #foreach($elem in $inputRoot.Items) {
+                    "id": "$elem.eventId.S",
+                    "userId": "$elem.userId.S",
+                    "day": "$elem.eventDate.S",
+                    "name": "$elem.title.S"
+                    }#if($foreach.hasNext),#end
+                    #end
+                  ]
+                }
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: Empty
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3628f872-8324-4f3c-b533-1815f404f61b
+  ResRootPost:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      HttpMethod: POST
+      RestApiId: !Ref EERestApi
+      AuthorizerId: !Ref EEAuthorizer
+      AuthorizationType: COGNITO_USER_POOLS
+      ResourceId: !GetAtt
+        - EERestApi
+        - RootResourceId
+      Integration:
+        Type: AWS
+        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/PutItem'
+        IntegrationHttpMethod: POST
+        Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
+        RequestTemplates:
+          application/json: |-
+            { 
+              "TableName": "impressions",
+              "Item": {
+                "eventId": {
+                  "S": "$input.path('$.id')"
+                },
+                "userId": {
+                  "S": "$context.authorizer.claims['cognito:username']"
+                },
+                "eventDate": {
+                  "S": "$input.path('$.date')"
+                },
+                "title": {
+                  "S": "$input.path('$.title')"
+                },
+                "description": {
+                  "S": "$input.path('$.description')"
+                },
+                "video": {
+                  "S": "$input.path('$.video')"
+                },
+                "isPrivate": {
+                  "BOOL": "$input.path('$.isPrivate')"
+                }
+              }
+            }
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: Empty
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3628f872-8324-4f3c-b533-1815f404f61b
+  ResRootOptions:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      AuthorizationType: NONE
+      RestApiId: !Ref EERestApi
+      ResourceId: !GetAtt
+        - EERestApi
+        - RootResourceId
+      HttpMethod: OPTIONS
+      Integration:
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: ''
+        PassthroughBehavior: WHEN_NO_MATCH
+        RequestTemplates:
+          application/json: '{"statusCode": 200}'
+        Type: MOCK
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: false
+            method.response.header.Access-Control-Allow-Methods: false
+            method.response.header.Access-Control-Allow-Origin: false
+  RestEventsResourse:
+    Type: 'AWS::ApiGateway::Resource'
+    Properties:
+      ParentId: !GetAtt
+        - EERestApi
+        - RootResourceId
+      RestApiId: !Ref EERestApi
+      PathPart: 'events'
+  ResEventsOptions:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      AuthorizationType: NONE
+      RestApiId: !Ref EERestApi
+      ResourceId: !Ref RestEventsResourse
+      HttpMethod: OPTIONS
+      Integration:
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: ''
+        PassthroughBehavior: WHEN_NO_MATCH
+        RequestTemplates:
+          application/json: '{"statusCode": 200}'
+        Type: MOCK
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: false
+            method.response.header.Access-Control-Allow-Methods: false
+            method.response.header.Access-Control-Allow-Origin: false
+  RestEventsUserIdResourse:
+    Type: 'AWS::ApiGateway::Resource'
+    Properties:
+      ParentId: !Ref RestEventsResourse
+      RestApiId: !Ref EERestApi
+      PathPart: '{userid}'
+  ResEventsUserIdOptions:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      AuthorizationType: NONE
+      RestApiId: !Ref EERestApi
+      ResourceId: !Ref RestEventsUserIdResourse
+      HttpMethod: OPTIONS
+      Integration:
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: ''
+        PassthroughBehavior: WHEN_NO_MATCH
+        RequestTemplates:
+          application/json: '{"statusCode": 200}'
+        Type: MOCK
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: false
+            method.response.header.Access-Control-Allow-Methods: false
+            method.response.header.Access-Control-Allow-Origin: false
+  RestEventsUserIdEventIdResourse:
+    Type: 'AWS::ApiGateway::Resource'
+    Properties:
+      ParentId: !Ref RestEventsUserIdResourse
+      RestApiId: !Ref EERestApi
+      PathPart: '{eventid}'
+  ResEventsUserIdEventIdOptions:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      AuthorizationType: NONE
+      RestApiId: !Ref EERestApi
+      ResourceId: !Ref RestEventsUserIdEventIdResourse
+      HttpMethod: OPTIONS
+      Integration:
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: ''
+        PassthroughBehavior: WHEN_NO_MATCH
+        RequestTemplates:
+          application/json: '{"statusCode": 200}'
+        Type: MOCK
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: false
+            method.response.header.Access-Control-Allow-Methods: false
+            method.response.header.Access-Control-Allow-Origin: false
+  ResEventsUserIdEventIdGet:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      HttpMethod: GET
+      AuthorizationType: NONE
+      RestApiId: !Ref EERestApi
+      ResourceId: !Ref RestEventsUserIdEventIdResourse
+      RequestParameters:
+        method.request.path.eventid: true
+        method.request.path.userid: true
+      Integration:
+        Type: AWS
+        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/GetItem'
+        IntegrationHttpMethod: POST
+        Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
+        RequestTemplates:
+          application/json: |-
+            {
+              "TableName": "impressions",
+              "Key" :{
+                "eventId" :{
+                  "S": "$input.params('eventid')"
+                },
+                "userId" : {
+                  "S": "$input.params('userid')"
+                }
+              }
+            }
+        PassthroughBehavior: WHEN_NO_TEMPLATES
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: |-
+                #set($inputRoot = $input.path('$'))
+                {
+                  "event": {
+                    "id": "$inputRoot.Item.eventId.S",
+                    "userId": "$inputRoot.Item.userId.S",
+                    "description": "$inputRoot.Item.description.S.replaceAll('\n', '\\n')",
+                    "date": "$inputRoot.Item.eventDate.S",
+                    "title": "$inputRoot.Item.title.S",
+                    "video": "$inputRoot.Item.video.S",
+                    "isPrivate": "$inputRoot.Item.isPrivate.BOOL"
+                  }
+                }
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: Empty
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+  RestEventsEventIdResourse:
+    Type: 'AWS::ApiGateway::Resource'
+    Properties:
+      ParentId: !GetAtt
+        - EERestApi
+        - RootResourceId
+      RestApiId: !Ref EERestApi
+      PathPart: '{eventid}'
+  ResEventsEventIdOptions:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      AuthorizationType: NONE
+      RestApiId: !Ref EERestApi
+      ResourceId: !Ref RestEventsEventIdResourse
+      HttpMethod: OPTIONS
+      Integration:
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: ''
+        PassthroughBehavior: WHEN_NO_MATCH
+        RequestTemplates:
+          application/json: '{"statusCode": 200}'
+        Type: MOCK
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: false
+            method.response.header.Access-Control-Allow-Methods: false
+            method.response.header.Access-Control-Allow-Origin: false
+  ResEventsEventIdGet:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      AuthorizerId: !Ref EEAuthorizer
+      AuthorizationType: COGNITO_USER_POOLS
+      HttpMethod: GET
+      RestApiId: !Ref EERestApi
+      ResourceId: !Ref RestEventsEventIdResourse
+      Integration:
+        Type: AWS
+        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/GetItem'
+        IntegrationHttpMethod: POST
+        Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
+        RequestTemplates:
+          application/json: |-
+            {
+              "TableName": "impressions",
+              "Key" :{
+                "eventId" :{
+                  "S": "$input.params('eventid')"
+                },
+                "userId" : {
+                  "S": "$context.authorizer.claims['cognito:username']"
+                }
+              }
+            }
+        PassthroughBehavior: WHEN_NO_TEMPLATES
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+            ResponseTemplates:
+              application/json: |-
+                #set($inputRoot = $input.path('$'))
+                {
+                  "event": {
+                    "id": "$inputRoot.Item.eventId.S",
+                    "userId": "$inputRoot.Item.userId.S",
+                    "description": "$inputRoot.Item.description.S.replaceAll('\n', '\\n')",
+                    "date": "$inputRoot.Item.eventDate.S",
+                    "title": "$inputRoot.Item.title.S",
+                    "video": "$inputRoot.Item.video.S",
+                    "isPrivate": "$inputRoot.Item.isPrivate.BOOL"
+                  }
+                }
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: Empty
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+  ResEventsEventIdDelete:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      AuthorizerId: !Ref EEAuthorizer
+      AuthorizationType: COGNITO_USER_POOLS
+      HttpMethod: DELETE
+      RestApiId: !Ref EERestApi
+      ResourceId: !Ref RestEventsEventIdResourse
+      RequestParameters:
+        method.request.path.eventid: true
+      Integration:
+        Type: AWS
+        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/DeleteItem'
+        IntegrationHttpMethod: POST
+        Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
+        RequestTemplates:
+          application/json: |-
+            {
+              "TableName": "impressions",
+              "Key" :{
+                "eventId" :{
+                  "S": "$input.params('eventid')"
+                },
+                "userId" : {
+                  "S": "$context.authorizer.claims['cognito:username']"
+                }
+              }
+            }
+        PassthroughBehavior: WHEN_NO_TEMPLATES
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: Empty
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+  ResEventsEventIdPut:
+    Type: 'AWS::ApiGateway::Method'
+    Properties:
+      HttpMethod: PUT
+      AuthorizerId: !Ref EEAuthorizer
+      AuthorizationType: COGNITO_USER_POOLS
+      RestApiId: !Ref EERestApi
+      ResourceId: !Ref RestEventsEventIdResourse
+      RequestParameters:
+        method.request.path.eventid: true
+      Integration:
+        Type: AWS
+        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/UpdateItem'
+        IntegrationHttpMethod: POST
+        Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
+        RequestTemplates:
+          application/json: |-
+            {
+              "TableName": "impressions",
+              "Key" :{
+                "eventId" :{
+                  "S": "$input.params('eventid')"
+                },
+                "userId" : {
+                  "S": "$context.authorizer.claims['cognito:username']"
+                }
+              },
+              "UpdateExpression": "set eventDate = :date, description = :description, title = :title, video = :video, isPrivate = :isPrivate",
+              "ExpressionAttributeValues": {
+                ":date": {"S": "$input.path("$.date")"},
+                ":description": {"S": "$input.path("$.description")"},
+                ":title": {"S": "$input.path("$.title")"},
+                ":video": {"S": "$input.path("$.video")"},
+                ":isPrivate": {"BOOL": "$input.path("$.isPrivate")"}
+              },
+              "ReturnValues": "UPDATED_NEW"
+            }
+        PassthroughBehavior: WHEN_NO_TEMPLATES
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: Empty
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+  EEAuthorizer:
+    Type: 'AWS::ApiGateway::Authorizer'
+    Properties:
+      Type: COGNITO_USER_POOLS
+      Name: EEventsAuthorizer
+      RestApiId: !Ref EERestApi
+      ProviderARNs:
+        - >-
+          arn:aws:cognito-idp:us-east-1:995789409065:userpool/us-east-1_69vWj59Hr
+      IdentitySource: method.request.header.Authorization
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 9adc6ea8-5dc1-427f-a8e3-56bb5c7dc86a
+  EERequestValidator:
+    Type: 'AWS::ApiGateway::RequestValidator'
+    Properties:
+      Name: RequestValidatorParametersOnly
+      RestApiId: !Ref EERestApi
+      ValidateRequestBody: false
+      ValidateRequestParameters: true
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 1ec856eb-29ca-4c37-8333-0a06980d9466
+  APIRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - apigateway.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: APIPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - "dynamodb:PutItem"
+                - "dynamodb:UpdateItem"
+                - "dynamodb:DeleteItem"
+                - "dynamodb:GetItem"
+              Resource: !GetAtt DragonsTable.Arn
