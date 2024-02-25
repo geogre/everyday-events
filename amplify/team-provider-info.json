@@ -22,11 +22,17 @@
         },
         "S3Triggerade21a8c": {
           "deploymentBucketName": "amplify-everydayevents-dev-181234-deployment",
-          "s3Key": "amplify-builds/S3Triggerade21a8c-613151642b4746715975-build.zip"
+          "s3Key": "amplify-builds/S3Triggerade21a8c-747344544b534b324f69-build.zip"
+        },
+        "everydayeventsTrigger112f30f1": {
+          "deploymentBucketName": "amplify-everydayevents-dev-181234-deployment",
+          "s3Key": "amplify-builds/everydayeventsTrigger112f30f1-584d776c4a6b44597741-build.zip"
         }
       },
       "storage": {
-        "eventsbucket": {}
+        "eventsbucket": {},
+        "everydayevents": {},
+        "userprofile": {}
       },
       "api": {
         "eventsapi": {}

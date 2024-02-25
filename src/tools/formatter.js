@@ -42,3 +42,9 @@ export function getCalendarMonth(year, month) {
 export function getAlbumPath(currentEvent) {
 	return currentEvent.userId + '/' + currentEvent.date + '/' + currentEvent.id;
 }
+
+export function youtubeParser(url){
+	const regExp = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|&v(?:i)?=))([^#&?]*).*/;
+	const match = url.match(regExp);
+	return match ? match[1] : false;
+}

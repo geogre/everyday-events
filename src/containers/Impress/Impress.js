@@ -10,11 +10,15 @@ import EventsByMonth from "../Diary/EventsByMonth/EventsByMonth";
 import EventsByDay from "../Diary/EventsByDay/EventsByDay";
 import EventsForDay from "../Diary/EventsForDay/EventsForDay";
 import SingleEvent from "../Diary/SingleEvent/SingleEvent";
+import UserProfile from "../Profile/UserProfile/UserProfile";
+import ChangePassword from "../Profile/ChangePassword/ChangePassword";
 
 const Impress = () =>  {
     const loggedInRoutes =
         (<Routes>
             <Route path="/" exact element={<Eevents />} />
+            <Route path="/profile/details" element={<UserProfile />} />
+            <Route path="/profile/change-password" element={<ChangePassword />} />
             <Route path="/my-events/new" element={<NewEvent />} />
             <Route path="/my-events/new/:currentDate" element={<NewEvent />} />
             <Route path="/my-events/update/:eventId" element={<UpdateEvent />} />

@@ -8,6 +8,10 @@ const awsconfig = {
             {
                 "name": "eventsapi",
                 "endpoint": "https://qwm3o6kq72.execute-api.us-east-1.amazonaws.com/dev"
+            },
+            {
+                "name": "eventsapi",
+                "endpoint": "https://qwm3o6kq72.execute-api.us-east-1.amazonaws.com/dev"
             }
         ]
     }

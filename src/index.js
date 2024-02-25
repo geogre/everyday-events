@@ -16,7 +16,7 @@ const composeEnhancers = (process.env.APP_ENV !== 'production' && window.__REDUX
 
 const rootReducer = combineReducers({
     eventsData: eventsReducer,
-    datesData: datesReducer
+    datesData: datesReducer,
 });
 
 const store = configureStore({

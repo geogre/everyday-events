@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/actions';
 
 const initialState = {
     events: [],
-    currentEvent: null
+    currentEvent: null,
+    imagesStats: null
 };
 
 const eventsReducer = (state = initialState, action ) => {
@@ -16,6 +17,11 @@ const eventsReducer = (state = initialState, action ) => {
             return {
                 ...state,
                 currentEvent: action.currentEvent
+            }
+        case actionTypes.GET_IMAGES_STATS:
+            return {
+                ...state,
+                imagesStats: action.currentImagesStats
             }
         // TODO Delete without refresh
         case actionTypes.DELETE_EVENT:

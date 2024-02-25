@@ -92,5 +92,18 @@ const EventsApi = {
             console.log(error.response)
         });
     },
+
+    async getImagesStats()
+    {
+        console.log('getting stats');
+        let path = config.basePath + '/imagesstats';
+        return API.get(config.apiName, path, { // OPTIONAL
+            headers: { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` },
+            response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
+            queryStringParameters: {}
+        }).then(response => response).catch(error => {
+            console.log(error.response)
+        });
+    },
 }
 export default EventsApi;

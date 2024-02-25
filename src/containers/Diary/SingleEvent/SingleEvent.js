@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import EventsApi from "../../../api/EventsApi";
 import {getAlbumPath} from "../../../tools/formatter";
 import DiaryWrapper from "../DiaryWrapper";
-import Gallery from "../../../components/Gallery/Gallery";
+import ReactImageGallery from "../../../components/ReactImageGallery/ReactImageGallery";
 
 function SingleEvent(props) {
     const { userId, eventId } = useParams();
@@ -25,7 +25,7 @@ function SingleEvent(props) {
     if (currentEvent) {
         content = <div>
             <div className={"album-block"} >
-                <Gallery path={getAlbumPath(currentEvent)} />
+                <ReactImageGallery path={getAlbumPath(currentEvent)} />
             </div>
         </div>;
     }

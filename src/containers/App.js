@@ -6,6 +6,7 @@ import api_config from '../api/aws-config';
 import Impress from './Impress/Impress';
 import {Button} from "@aws-amplify/ui-react";
 import '../eeTheme.scss';
+import ImagesStats from "../components/ImagesStats/ImagesStats";
 Amplify.configure({...aws_exports, ...api_config});
 
 
@@ -18,7 +19,10 @@ const App = () => {
         <div className={"App"}>
             <div className={"AppHeader AppHeader_user"}>
                 <div><img src={"/logo.svg"} /></div>
-                <div><Button onClick={logout}>Logout</Button></div>
+                <div>
+                    <ImagesStats />
+                    <Button onClick={logout}>Logout</Button>
+                </div>
             </div>
             <Impress />
         </div>

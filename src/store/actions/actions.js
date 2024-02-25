@@ -4,6 +4,7 @@ export const UPDATE_EVENT = 'UPDATE_EVENT';
 export const ADD_EVENT = 'ADD_EVENT';
 export const DELETE_EVENT = 'DELETE_EVENT';
 export const GET_DATE = 'GET_DATE';
+export const GET_IMAGES_STATS = 'GET_IMAGES_STATS';
 
 export const getEvents = (events) => {
     return {
@@ -44,5 +45,12 @@ export const getDate = (currentDate) => {
     return {
         type: GET_DATE,
         currentDate: currentDate
+    };
+};
+
+export const getImagesStats = (currentImagesStats) => {
+    return {
+        type: GET_IMAGES_STATS,
+        currentImagesStats: currentImagesStats
     };
 };

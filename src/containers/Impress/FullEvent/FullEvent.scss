@@ -41,3 +41,15 @@
         }
     }
 }
+.video {
+    display: flex;
+    align-items: flex-start;
+    img {
+        &:not(:hover) {
+            filter: grayscale(100%);
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

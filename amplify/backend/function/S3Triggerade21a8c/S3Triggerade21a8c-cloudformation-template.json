@@ -159,6 +159,11 @@
               "Effect": "Allow",
               "Action": "secretsmanager:GetSecretValue",
               "Resource": "arn:aws:secretsmanager:us-east-1:995789409065:secret:prod/eevents/mysql-zCGLCc"
+            },
+            {
+              "Effect": "Allow",
+              "Action": "dynamodb:UpdateItem",
+              "Resource": "arn:aws:dynamodb:us-east-1:995789409065:table/userprofile-dev"
             }
           ]
         }

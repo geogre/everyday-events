@@ -15,6 +15,7 @@ const getSecret = async () => {
 }
 
 const mysql = require('mysql2/promise');
+var docClient = new AWS.DynamoDB.DocumentClient({apiVersion: '2012-08-10'});
 let secret = null;
 let connection = null;
 
@@ -31,13 +32,32 @@ exports.handler = async function (event) {
   const eventName = event.Records[0].eventName;
 
   const image = event.Records[0].s3.object;
-  if (eventName === "ObjectCreated:Put") {
-    const key = image.key;
-    const size = image.size;
-    const eventId = image.key.split('/')[3];
 
+  const key = image.key;
+  const keyParts = image.key.split('/');
+  const eventId = keyParts[3];
+  const userId = keyParts[1];
+
+  const putObject = {
+    TableName: "userprofile-dev",
+    Key: {
+      userId: userId,
+    },
+    ExpressionAttributeValues: null,
+    UpdateExpression: "ADD imagescount :count, imagessize :size"
+  };
+
+  if (eventName === "ObjectCreated:Put") {
+    const size = image.size;
+    putObject.ExpressionAttributeValues = { ":count": 1, ":size": size };
+    await docClient.update(putObject).promise();
     await connection.execute("INSERT INTO everydayeventsdb.eimages (`eventId`, `size`, `path`) VALUES (?, ?, ?)", [eventId, size, key]);
   } else if (eventName === "ObjectRemoved:Delete") {
-    await connection.execute("DELETE FROM everydayeventsdb.eimages WHERE path = ?", [image.key]);
+    const size = keyParts[4].split('-')[0];
+    if (Number.isInteger(Number(size))) {
+      putObject.ExpressionAttributeValues = { ":count": -1, ":size": -1 * size };
+      await docClient.update(putObject).promise();
+      await connection.execute("DELETE FROM everydayeventsdb.eimages WHERE path = ?", [image.key]);
+    }
   }
 };

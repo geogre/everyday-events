@@ -1,0 +1,12 @@
+Resources:
+  LambdaFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      FunctionName: GetYearsForUser
+      Handler: index.handler
+      Runtime: nodejs14.x
+      MemorySize: 1024
+      Role: 'arn:aws:iam::995789409065:role/everydayeventsLambdaRole2bce4173-dev'
+      Code:
+        S3Bucket: bestgeogre-ee-lambda-functions
+        S3Key: GetYearsForUser.zip

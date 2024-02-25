@@ -48,6 +48,22 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "everydayeventsTrigger112f30f1": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "everydayevents"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "getyearsforuser": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -68,6 +84,22 @@
         {
           "category": "function",
           "resourceName": "S3Triggerade21a8c"
+        }
+      ]
+    },
+    "AMPLIFY_function_everydayeventsTrigger112f30f1_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "everydayeventsTrigger112f30f1"
+        }
+      ]
+    },
+    "AMPLIFY_function_everydayeventsTrigger112f30f1_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "everydayeventsTrigger112f30f1"
         }
       ]
     },
@@ -103,6 +135,14 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "S3"
+    },
+    "everydayevents": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "userprofile": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
     }
   }
 }
