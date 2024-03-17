@@ -2,11 +2,15 @@ import React from 'react';
 import './App.scss';
 import Amplify, { Auth } from 'aws-amplify';
 import aws_exports from '../aws-exports';
+import aws_exports_custom from '../aws-exports-custom';
 import api_config from '../api/aws-config';
 import Impress from './Impress/Impress';
 import {Button} from "@aws-amplify/ui-react";
 import '../eeTheme.scss';
 import ImagesStats from "../components/ImagesStats/ImagesStats";
+
+const newAwsCloudLogicCustom = aws_exports.aws_cloud_logic_custom.concat(aws_exports_custom.aws_cloud_logic_custom);
+aws_exports.aws_cloud_logic_custom = newAwsCloudLogicCustom;
 Amplify.configure({...aws_exports, ...api_config});
 
 

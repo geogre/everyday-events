@@ -81,7 +81,7 @@ Resources:
         method.request.querystring.to: true
       Integration:
         Type: AWS
-        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/Query'
+        Uri: 'arn:aws:apigateway:us-east-1:dynamodb:action/Query'
         IntegrationHttpMethod: POST
         RequestParameters:
           integration.request.querystring.from: method.request.querystring.from
@@ -139,7 +139,7 @@ Resources:
         - RootResourceId
       Integration:
         Type: AWS
-        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/PutItem'
+        Uri: 'arn:aws:apigateway:us-east-1:dynamodb:action/PutItem'
         IntegrationHttpMethod: POST
         Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
         RequestTemplates:
@@ -329,7 +329,7 @@ Resources:
         method.request.path.userid: true
       Integration:
         Type: AWS
-        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/GetItem'
+        Uri: 'arn:aws:apigateway:us-east-1:dynamodb:action/GetItem'
         IntegrationHttpMethod: POST
         Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
         RequestTemplates:
@@ -416,7 +416,7 @@ Resources:
       ResourceId: !Ref RestEventsEventIdResourse
       Integration:
         Type: AWS
-        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/GetItem'
+        Uri: 'arn:aws:apigateway:us-east-1:dynamodb:action/GetItem'
         IntegrationHttpMethod: POST
         Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
         RequestTemplates:
@@ -469,7 +469,7 @@ Resources:
         method.request.path.eventid: true
       Integration:
         Type: AWS
-        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/DeleteItem'
+        Uri: 'arn:aws:apigateway:us-east-1:dynamodb:action/DeleteItem'
         IntegrationHttpMethod: POST
         Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
         RequestTemplates:
@@ -508,7 +508,7 @@ Resources:
         method.request.path.eventid: true
       Integration:
         Type: AWS
-        Uri: 'arn:aws:apigateway:us-east-1:DynamoDB:action/UpdateItem'
+        Uri: 'arn:aws:apigateway:us-east-1:dynamodb:action/UpdateItem'
         IntegrationHttpMethod: POST
         Credentials: 'arn:aws:iam::995789409065:role/ImpressionsAPItoDBRole'
         RequestTemplates:
@@ -567,27 +567,3 @@ Resources:
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 1ec856eb-29ca-4c37-8333-0a06980d9466
-  APIRole:
-    Type: 'AWS::IAM::Role'
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - apigateway.amazonaws.com
-            Action:
-              - sts:AssumeRole
-      Policies:
-        - PolicyName: APIPolicy
-          PolicyDocument:
-            Version: 2012-10-17
-          Statement:
-            - Effect: Allow
-              Action:
-                - "dynamodb:PutItem"
-                - "dynamodb:UpdateItem"
-                - "dynamodb:DeleteItem"
-                - "dynamodb:GetItem"
-              Resource: !GetAtt DragonsTable.Arn
